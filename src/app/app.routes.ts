@@ -1,3 +1,8 @@
 import { Routes } from '@angular/router';
+import {Home} from './shared/presentation/views/home/home';
 
-export const routes: Routes = [];
+const baseTitle = 'DoofPlus'
+
+export const routes: Routes = [
+  { path: 'home', component: Home, title: `${baseTitle} - Home` },
+];
