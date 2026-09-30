@@ -2,5 +2,14 @@
   "home":{
     "title": " ",
     "content": " "
+  },
+
+  "footer": {
+    "product": "Producto",
+    "copyright": "Copyright © 2026 IngesCompany. Derechos reservados",
+    "features": "Características",
+    "contact": "Contacto",
+    "pricing": "Precios",
+    "how-it-works": "Cómo funciona"
   }
 }
