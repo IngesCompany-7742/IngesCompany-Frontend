@@ -14,7 +14,7 @@ import { Toolbar } from '../../components/toolbar/toolbar';
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [RouterLink, TranslatePipe, Toolbar],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './about.html',
   styleUrl: './about.css',
 })

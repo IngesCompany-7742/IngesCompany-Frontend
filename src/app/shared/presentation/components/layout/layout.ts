@@ -4,6 +4,7 @@ import { MatButton } from '@angular/material/button';
 import {Footer} from '../footer/footer';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import {Toolbar} from '../toolbar/toolbar';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe,
     RouterOutlet,
     Footer,
+    Toolbar,
   ],
   selector: 'app-layout',
   styleUrl: './layout.css',

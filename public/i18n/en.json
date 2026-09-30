@@ -3,6 +3,10 @@
     "title": " ",
     "content": " "
   },
+  "option": {
+    "home": "Home",
+    "about": "About"
+  },
 
   "footer": {
     "product": "Product",

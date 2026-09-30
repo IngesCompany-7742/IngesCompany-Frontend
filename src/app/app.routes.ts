@@ -15,7 +15,7 @@ const pageNotFound = () =>
   import('./shared/presentation/views/page-not-found/page-not-found').then(m=>m.PageNotFound);
 
 /**
- * Define the routes
+ * Define the routes where the toolbar and footer will be used
  */
 export const routes: Routes = [
   { path: 'home', component: Home, title: `${baseTitle} - Home` },

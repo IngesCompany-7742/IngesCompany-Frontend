@@ -4,6 +4,11 @@
     "content": " "
   },
 
+  "option": {
+    "home": "Inicio",
+    "about": "Sobre nosotros"
+  },
+
   "footer": {
     "product": "Producto",
     "copyright": "Copyright © 2026 IngesCompany. Derechos reservados",
