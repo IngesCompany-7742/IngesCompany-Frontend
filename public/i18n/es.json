@@ -1,3 +1,20 @@
 {
+  "home":{
+    "title": " ",
+    "content": " "
+  },
 
+  "option": {
+    "home": "Inicio",
+    "about": "Sobre nosotros"
+  },
+
+  "footer": {
+    "product": "Producto",
+    "copyright": "Copyright © 2026 IngesCompany. Derechos reservados",
+    "features": "Características",
+    "contact": "Contacto",
+    "pricing": "Precios",
+    "how-it-works": "Cómo funciona"
+  }
 }
