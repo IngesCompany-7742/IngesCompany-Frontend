@@ -16,6 +16,18 @@
     "contact": "Contacto",
     "pricing": "Precios",
     "how-it-works": "Cómo funciona"
+  },
+  "manufacturing": {
+    "batch_list": {
+      "title": "Trazabilidad de Lotes Farmacéuticos",
+      "subtitle": "Monitoreo en tiempo real del estado de producción.",
+      "new_batch": "+ Registrar Nuevo Lote",
+      "col_id": "ID Lote",
+      "col_formula": "Fórmula del Producto",
+      "col_quantity": "Cantidad",
+      "col_status": "Estado",
+      "empty": "No se encontraron lotes."
+    }
   }
 }
 
