@@ -27,6 +27,13 @@
       "col_quantity": "Cantidad",
       "col_status": "Estado",
       "empty": "No se encontraron lotes."
+    },
+    "batch_form": {
+      "title": "Registrar Nuevo Lote",
+      "lbl_id": "ID del Lote:",
+      "lbl_formula": "Fórmula del Producto:",
+      "lbl_quantity": "Cantidad (unidades):",
+      "btn_save": "Guardar Lote"
     }
   }
 }
