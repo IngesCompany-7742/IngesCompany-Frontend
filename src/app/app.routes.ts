@@ -14,6 +14,9 @@ const manufacturingRoutes = () => import('./manufacturing/presentation/manufactu
 const iamAdministrationRoutes = () => import('./iam/presentation/iam.routes').then((m) => m.iamAdministrationRoutes);
 const monitoringRoutes = () => import('./monitoring/presentation/monitoring.routes').then((m) => m.monitoringRoutes);
 const subscriptionsRoutes = () => import('./subscriptions/presentation/subscriptions.routes').then(m => m.subscriptionsRoutes);
+const organizationsPublicRoutes = () => import('./organizations/presentation/organizations.routes').then(m => m.organizationsPublicRoutes);
+const organizationsAdministrationRoutes = () => import('./organizations/presentation/organizations.routes').then(m => m.organizationsAdministrationRoutes);
+const profileRoutes = () => import('./organizations/presentation/organizations.routes').then(m => m.profileRoutes);
 
 /**
  * Route shown inside a frame when a path does not exist.
@@ -27,12 +30,16 @@ const notFound = { path: '**', loadComponent: pageNotFound, title: `${baseTitle}
 export const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
   { path: 'sign-in', loadComponent: layout, loadChildren: iamRoutes },
+  { path: 'register', loadChildren: organizationsPublicRoutes },
   {
     path: 'qa',
     loadComponent: workspaceShell,
     canActivate: [iamGuard],
     data: { environment: 'qa' },
-    children: [notFound],
+    children: [
+      { path: '', loadChildren: profileRoutes },
+      notFound,
+    ],
   },
   {
     path: 'production',
@@ -40,6 +47,7 @@ export const routes: Routes = [
     canActivate: [iamGuard],
     data: { environment: 'production' },
     children: [
+      { path: '', loadChildren: profileRoutes },
       { path: '', loadChildren: manufacturingRoutes },
       { path: '', loadChildren: monitoringRoutes },
       notFound,
@@ -53,6 +61,8 @@ export const routes: Routes = [
     children: [
       { path: '', loadChildren: iamAdministrationRoutes },
       { path: '', loadChildren: subscriptionsRoutes },
+      { path: '', loadChildren: organizationsAdministrationRoutes },
+      { path: '', loadChildren: profileRoutes },
       notFound,
     ],
   },
