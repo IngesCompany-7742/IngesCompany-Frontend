@@ -5,6 +5,18 @@
       "productFormula": "Paracetamol 500mg",
       "quantity": 10000,
       "status": "Planned"
+    },
+    {
+      "id": "LT-2026-002",
+      "productFormula": "Ibuprofen 200mg",
+      "quantity": 5000,
+      "status": "In Progress"
+    },
+    {
+      "id": "LT-2026-003",
+      "productFormula": "Amoxicillin 250mg",
+      "quantity": 8000,
+      "status": "Completed"
     }
   ]
 }
