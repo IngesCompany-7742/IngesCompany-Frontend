@@ -17,6 +17,8 @@ const subscriptionsRoutes = () => import('./subscriptions/presentation/subscript
 const organizationsPublicRoutes = () => import('./organizations/presentation/organizations.routes').then(m => m.organizationsPublicRoutes);
 const organizationsAdministrationRoutes = () => import('./organizations/presentation/organizations.routes').then(m => m.organizationsAdministrationRoutes);
 const profileRoutes = () => import('./organizations/presentation/organizations.routes').then(m => m.profileRoutes);
+const qualityRoutes = () => import('./quality/presentation/quality.routes').then(m => m.qualityRoutes);
+const qualitySharedRoutes = () => import('./quality/presentation/quality.routes').then(m => m.qualitySharedRoutes);
 
 /**
  * Route shown inside a frame when a path does not exist.
@@ -38,6 +40,7 @@ export const routes: Routes = [
     data: { environment: 'qa' },
     children: [
       { path: '', loadChildren: profileRoutes },
+      { path: '', loadChildren: qualityRoutes },
       notFound,
     ],
   },
@@ -50,6 +53,7 @@ export const routes: Routes = [
       { path: '', loadChildren: profileRoutes },
       { path: '', loadChildren: manufacturingRoutes },
       { path: '', loadChildren: monitoringRoutes },
+      { path: '', loadChildren: qualitySharedRoutes },
       notFound,
     ],
   },
@@ -62,6 +66,7 @@ export const routes: Routes = [
       { path: '', loadChildren: iamAdministrationRoutes },
       { path: '', loadChildren: subscriptionsRoutes },
       { path: '', loadChildren: organizationsAdministrationRoutes },
+      { path: '', loadChildren: qualitySharedRoutes },
       { path: '', loadChildren: profileRoutes },
       notFound,
     ],
