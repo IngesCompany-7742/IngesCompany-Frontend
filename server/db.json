@@ -1,0 +1,10 @@
+{
+  "production-batches": [
+    {
+      "id": "LT-2026-001",
+      "productFormula": "Paracetamol 500mg",
+      "quantity": 10000,
+      "status": "Planned"
+    }
+  ]
+}

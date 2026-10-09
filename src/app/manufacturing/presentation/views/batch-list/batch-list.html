@@ -1,0 +1,40 @@
+<div class="lots-container">
+  <div class="page-header">
+    <div>
+      <h2>{{ 'manufacturing.batch_list.title' | translate }}</h2>
+      <p class="subtitle">{{ 'manufacturing.batch_list.subtitle' | translate }}</p>
+    </div>
+    <a routerLink="/batches/new" class="btn-create">{{ 'manufacturing.batch_list.new_batch' | translate }}</a>
+  </div>
+
+  <div class="table-card">
+    <table class="custom-table">
+      <thead>
+      <tr>
+        <th>{{ 'manufacturing.batch_list.col_id' | translate }}</th>
+        <th>{{ 'manufacturing.batch_list.col_formula' | translate }}</th>
+        <th>{{ 'manufacturing.batch_list.col_quantity' | translate }}</th>
+        <th>{{ 'manufacturing.batch_list.col_status' | translate }}</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (batch of batches; track batch.id) {
+          <tr>
+            <td><strong>{{ batch.id }}</strong></td>
+            <td>{{ batch.productFormula }}</td>
+            <td>{{ batch.quantity }} u.</td>
+            <td>
+              <span class="badge" [class]="batch.status.toLowerCase().replace(' ', '_')">
+                {{ batch.status }}
+              </span>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="4" class="empty-state">{{ 'manufacturing.batch_list.empty' | translate }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

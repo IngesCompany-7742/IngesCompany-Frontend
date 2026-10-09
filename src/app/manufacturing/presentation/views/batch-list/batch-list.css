@@ -1,0 +1,93 @@
+.lots-container {
+  display: flex;
+  flex-direction: column; gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 20px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.page-header h2 {
+  font-size: 20px;
+  color: #0f172a;
+  margin: 0;
+}
+
+.page-header .subtitle {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.btn-create {
+  background-color: #2563eb;
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.btn-create:hover {
+  background-color: #1d4ed8;
+}
+
+.table-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.custom-table th, .custom-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+}
+
+.custom-table th {
+  color: #64748b;
+  font-weight: 600;
+  background: #f8fafc;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.badge.planned {
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+.badge.in_progress {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+.empty-state {
+  text-align: center;
+  color: #94a3b8;
+  padding: 30px !important;
+}

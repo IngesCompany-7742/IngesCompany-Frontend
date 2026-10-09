@@ -70,5 +70,24 @@
     "contact": "Contact",
     "pricing": "Pricing",
     "how-it-works": "How it works"
+  },
+  "manufacturing": {
+    "batch_list": {
+      "title": "Pharmaceutical Batch Traceability",
+      "subtitle": "Real-time monitoring of production status.",
+      "new_batch": "+ Register New Batch",
+      "col_id": "Batch ID",
+      "col_formula": "Product Formula",
+      "col_quantity": "Quantity",
+      "col_status": "Status",
+      "empty": "No batches found."
+    },
+    "batch_form": {
+      "title": "Register New Batch",
+      "lbl_id": "Batch ID:",
+      "lbl_formula": "Product Formula:",
+      "lbl_quantity": "Quantity (units):",
+      "btn_save": "Save Batch"
+    }
   }
 }

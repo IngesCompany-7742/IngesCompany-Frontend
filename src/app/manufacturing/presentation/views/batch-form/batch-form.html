@@ -1,0 +1,18 @@
+<div class="content-box">
+  <h2>{{ 'manufacturing.batch_form.title' | translate }}</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="field">
+      <label for="batchId">{{ 'manufacturing.batch_form.lbl_id' | translate }}</label>
+      <input id="batchId" type="text" [(ngModel)]="newBatch.id" name="id" required />
+    </div>
+    <div class="field">
+      <label for="productFormula">{{ 'manufacturing.batch_form.lbl_formula' | translate }}</label>
+      <input id="productFormula" type="text" [(ngModel)]="newBatch.productFormula" name="productFormula" required />
+    </div>
+    <div class="field">
+      <label for="quantity">{{ 'manufacturing.batch_form.lbl_quantity' | translate }}</label>
+      <input id="quantity" type="number" [(ngModel)]="newBatch.quantity" name="quantity" required />
+    </div>
+    <button type="submit" class="btn">{{ 'manufacturing.batch_form.btn_save' | translate }}</button>
+  </form>
+</div>
