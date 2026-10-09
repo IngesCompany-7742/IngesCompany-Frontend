@@ -1,0 +1,82 @@
+﻿@startuml
+' DoofPlus Web Application - Domain-Driven Design Class Diagram
+
+package "app" {
+
+  ' ==========================================
+  ' SHARED BOUNDED CONTEXT
+  ' ==========================================
+  package "shared" {
+    package "domain.model" {
+      interface BaseEntity {
+        +id: number
+      }
+    }
+  }
+
+  ' ==========================================
+  ' IAM BOUNDED CONTEXT
+  ' ==========================================
+  package "iam" {
+    package "domain.model as iam.domain.model" {
+      class UserProfile {
+        +id: number
+        +email: string
+        +role: string
+        +environment: string
+      }
+    }
+  }
+
+  ' ==========================================
+  ' MANUFACTURING BOUNDED CONTEXT
+  ' ==========================================
+  package "manufacturing" {
+    package "domain.model as mfg.domain.model" {
+      class Batch {
+        +id: number
+        +code: string
+        +status: string
+        +manufacturingDate: Date
+      }
+      class MasterFormula {
+        +id: number
+        +name: string
+        +version: string
+        +isApproved: boolean
+      }
+    }
+  }
+
+  ' ==========================================
+  ' QUALITY BOUNDED CONTEXT
+  ' ==========================================
+  package "quality" {
+    package "domain.model as qa.domain.model" {
+      class Deviation {
+        +id: number
+        +title: string
+        +rootCause: string
+        +status: string
+      }
+      class CapaPlan {
+        +id: number
+        +description: string
+        +status: string
+      }
+      class QualityDocument {
+        +id: number
+        +title: string
+        +status: string
+      }
+    }
+  }
+
+  ' Relationships
+  Batch "*" --> "1" MasterFormula : follows
+  Deviation "*" --> "1" Batch : affects
+  CapaPlan "1" --> "1" Deviation : resolves
+  QualityDocument "*" --> "1" UserProfile : authored by
+  Batch "*" --> "1" UserProfile : released by
+}
+@enduml
