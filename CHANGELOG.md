@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-09
+### Fixed
+- The production build reads the fake API published on Render instead of `localhost:3000`.
+- Tables and alerts of seven views copied before the accessibility work now have names and roles for screen readers.
+- Seed data: material lot RM-26104 starts in sampling again.
+### Added
+- Firebase project alias in `.firebaserc`; the deploy cache `.firebase/` is ignored.
+
 ## [1.0.0] - 2026-10-09
 ### Added
 - Identity & Access Management (IAM) bounded context: environment selection, sign-in with two-factor code, role-based access and user invitations.
