@@ -7,13 +7,11 @@ const pageNotFound = () =>
   import('./shared/presentation/views/page-not-found/page-not-found').then(m => m.PageNotFound);
 
 const layout = () => import('./shared/presentation/components/layout/layout').then(m => m.Layout);
-const workspaceShell = () =>
-  import('./shared/presentation/components/workspace-shell/workspace-shell').then(m => m.WorkspaceShell);
+const workspaceShell = () => import('./shared/presentation/components/workspace-shell/workspace-shell').then(m => m.WorkspaceShell);
 
 const iamRoutes = () => import('./iam/presentation/iam.routes').then(m => m.iamRoutes);
 const manufacturingRoutes = () => import('./manufacturing/presentation/manufacturing.routes').then(m => m.manufacturingRoutes);
-const iamAdministrationRoutes = () =>
-  import('./iam/presentation/iam.routes').then((m) => m.iamAdministrationRoutes);
+const iamAdministrationRoutes = () => import('./iam/presentation/iam.routes').then((m) => m.iamAdministrationRoutes);
 const monitoringRoutes = () => import('./monitoring/presentation/monitoring.routes').then((m) => m.monitoringRoutes);
 const subscriptionsRoutes = () => import('./subscriptions/presentation/subscriptions.routes').then(m => m.subscriptionsRoutes);
 
