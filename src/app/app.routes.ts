@@ -1,6 +1,5 @@
 import {Routes} from '@angular/router';
 import {iamGuard} from './iam/infrastructure/iam.guard';
-import {routes as manufacturingRoutes} from './manufacturing/presentation/manufacturing.routes';
 
 const baseTitle = 'DoofPlus';
 
@@ -12,6 +11,7 @@ const workspaceShell = () =>
   import('./shared/presentation/components/workspace-shell/workspace-shell').then(m => m.WorkspaceShell);
 
 const iamRoutes = () => import('./iam/presentation/iam.routes').then(m => m.iamRoutes);
+const manufacturingRoutes = () => import('./manufacturing/presentation/manufacturing.routes').then(m => m.manufacturingRoutes);
 const iamAdministrationRoutes = () => import('./iam/presentation/iam.routes').then(m => m.iamAdministrationRoutes);
 
 /**
@@ -30,14 +30,12 @@ export const routes: Routes = [
     notFound
   ]},
   { path: 'production',     loadComponent: workspaceShell, canActivate: [iamGuard], data: { environment: 'production' }, children: [
+    { path: '', loadChildren: manufacturingRoutes },
     notFound
   ]},
   { path: 'administration', loadComponent: workspaceShell, canActivate: [iamGuard], data: { environment: 'administration' }, children: [
     { path: '', loadChildren: iamAdministrationRoutes },
     notFound
   ]},
-  { path: '',               loadComponent: layout, children: [
-    ...manufacturingRoutes,
-    notFound
-  ]}
+  { path: '',               loadComponent: layout, children: [notFound] }
 ];
