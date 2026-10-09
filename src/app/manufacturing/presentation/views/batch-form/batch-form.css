@@ -1,0 +1,39 @@
+.rejected {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 28px;
+}
+
+.rejected h2 {
+  font-size: 20px;
+}
+
+.dialog-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.form {
+  min-width: 420px;
+  padding-top: 8px;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 8px 24px 24px;
+}
+
+@media (max-width: 600px) {
+  .form {
+    min-width: 0;
+  }
+}

@@ -1,59 +1,77 @@
-# IngesCompanyFrontend
+# DoofPlus Web Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.0.
+![Angular](https://img.shields.io/badge/Angular-22-dd0031?style=for-the-badge&logo=angular)
+![Material](https://img.shields.io/badge/Material-22-ff4081?style=for-the-badge&logo=angular)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6?style=for-the-badge&logo=typescript)
+![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
 
-## Development server
+Official implementation of the DoofPlus Web Application, built from the Figma mock-ups of the project report.
 
-To start a local development server, run:
+It follows the course base project (`learning-center`): Angular 22, Angular Material, ngx-translate (English and Spanish) and a fake REST API with json-server. Each bounded context has its own `domain`, `application`, `infrastructure` and `presentation` layers, and the shared base classes (`BaseApi`, `BaseApiEndpoint`, `BaseAssembler`, `BaseForm`) live in `src/app/shared`.
 
+## 🚀 Run & Installation
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v20+ recommended)
+- npm package manager
+
+### Setup
 ```bash
-ng serve
+npm install
+npm run server
+npm start
+```
+- `npm run server` starts the fake API at `http://localhost:3000/api/v1` (data in `server/db.json`). 
+- `npm start` opens the app at `http://localhost:4200/`.
+
+## 🔐 Test accounts
+
+Every account uses the password `DoofPlus2026!` and the two-factor code `482106`.
+
+| User | Email | Environment |
+|------|-------|-------------|
+| María México · QA Specialist (release privilege) | `maria.mexico@andinos.com.pe` | QA/QC |
+| Alberto Valle · Production Supervisor | `alberto.valle@andinos.com.pe` | Production |
+| Carlos Medina · Administrator | `carlos.medina@andinos.com.pe` | Administration |
+
+> **Note:** Signing in to an environment that does not match the role shows the "Access not authorized" state.
+
+## 🧩 Bounded Contexts and Routes
+
+| Bounded context | Folder | Routes |
+|-----------------|--------|--------|
+| Identity & Access Management | `src/app/iam` | `/sign-in`, `/sign-in/:environment` (credentials, 2FA, not authorized), `/administration/users`, `/administration/users/invite` |
+| Organizations & Profiles | `src/app/organizations` | `/register` (RUC already registered, verification), `/administration/overview`, `/<environment>/profile` |
+| Subscriptions & Payments | `src/app/subscriptions` | `/administration/subscription` (declined payment, plan change review) |
+| Manufacturing & Batch Management | `src/app/manufacturing` | `/production/overview`, `/production/orders`, `/production/orders/:code`, `/production/products`, `/production/batches` (batch not created), `/production/batches/:code`, `/production/raw-materials` |
+| IoT Monitoring | `src/app/monitoring` | `/production/iot`, `/production/equipment`, `/production/sensors/:code`, `/production/incidents`, `/production/batches/:code/iot` |
+| Quality & Compliance | `src/app/quality` | `/qa/overview`, `/qa/indicators`, `/qa/documents` (self-approval blocked), `/qa/deviations`, `/qa/capa` (root cause required), `/qa/batch-release` (release blocked), `/qa/analytical-results`, `/qa/audits`, `/qa/regulatory-reports`, `/<environment>/audit-trail`, `/<environment>/tasks` |
+
+## 🏗️ Architecture & Folder Structure (DDD)
+
+The project follows **Domain-Driven Design (DDD)** applied to frontend development. Every bounded context is completely isolated and strictly divided into four layers:
+
+```text
+src/app/<bounded-context>/
+├── domain/           # Entities, Aggregates, and Interfaces (Business logic)
+├── application/      # Stores, State Management, and Use Cases (Signals)
+├── infrastructure/   # Services, Assemblers (DTO mapping), HTTP endpoints
+└── presentation/     # Smart/Dumb Components, Views, and Local Routes
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 💡 Business Rules Implemented
 
-## Code scaffolding
+- Two-factor code after the password; the environment is checked after the identity is verified.
+- Separation of duties: the author of a document version cannot approve it; a CAPA owner cannot be its reviewer.
+- A batch can only be created with a unique code and an approved master formula.
+- Equipment that is not fit for use, or whose sensors feed another batch in progress, cannot be associated with a batch.
+- An out-of-specification result requires a deviation; a deviation needs reviewed evidence before it is submitted.
+- Batch release requires every readiness check and the re-entered password of a user with the QA release privilege. Every signature is recorded in the audit trail.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🛠️ Tech Stack & Conventions
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **Framework:** Angular 22 (Zoneless configuration with Signals).
+- **UI Library:** Angular Material.
+- **i18n:** `ngx-translate` for real-time localization (EN/ES).
+- **Mock Backend:** `json-server` routing complex relational data.
+- **Components:** Standalone components (no NgModules).

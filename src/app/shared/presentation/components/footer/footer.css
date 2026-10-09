@@ -1,0 +1,28 @@
+.app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 64px;
+  background-color: var(--navy);
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+nav {
+  display: flex;
+  gap: 36px;
+}
+
+a {
+  color: #5eead4;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .app-footer {
+    flex-direction: column;
+    padding: 20px 16px;
+  }
+}

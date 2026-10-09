@@ -1,3 +1,75 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
+import {iamGuard} from './iam/infrastructure/iam.guard';
 
-export const routes: Routes = [];
+const baseTitle = 'DoofPlus';
+
+const pageNotFound = () =>
+  import('./shared/presentation/views/page-not-found/page-not-found').then(m => m.PageNotFound);
+
+const layout = () => import('./shared/presentation/components/layout/layout').then(m => m.Layout);
+const workspaceShell = () => import('./shared/presentation/components/workspace-shell/workspace-shell').then(m => m.WorkspaceShell);
+
+const iamRoutes = () => import('./iam/presentation/iam.routes').then(m => m.iamRoutes);
+const manufacturingRoutes = () => import('./manufacturing/presentation/manufacturing.routes').then(m => m.manufacturingRoutes);
+const iamAdministrationRoutes = () => import('./iam/presentation/iam.routes').then((m) => m.iamAdministrationRoutes);
+const monitoringRoutes = () => import('./monitoring/presentation/monitoring.routes').then((m) => m.monitoringRoutes);
+const subscriptionsRoutes = () => import('./subscriptions/presentation/subscriptions.routes').then(m => m.subscriptionsRoutes);
+const organizationsPublicRoutes = () => import('./organizations/presentation/organizations.routes').then(m => m.organizationsPublicRoutes);
+const organizationsAdministrationRoutes = () => import('./organizations/presentation/organizations.routes').then(m => m.organizationsAdministrationRoutes);
+const profileRoutes = () => import('./organizations/presentation/organizations.routes').then(m => m.profileRoutes);
+const qualityRoutes = () => import('./quality/presentation/quality.routes').then(m => m.qualityRoutes);
+const qualitySharedRoutes = () => import('./quality/presentation/quality.routes').then(m => m.qualitySharedRoutes);
+
+/**
+ * Route shown inside a frame when a path does not exist.
+ */
+const notFound = { path: '**', loadComponent: pageNotFound, title: `${baseTitle} - Page Not Found` };
+
+/**
+ * Root routes. Public pages use the layout (toolbar and footer); each environment uses the
+ * workspace shell and is protected by the IAM guard.
+ */
+export const routes: Routes = [
+  { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
+  { path: 'sign-in', loadComponent: layout, loadChildren: iamRoutes },
+  { path: 'register', loadChildren: organizationsPublicRoutes },
+  {
+    path: 'qa',
+    loadComponent: workspaceShell,
+    canActivate: [iamGuard],
+    data: { environment: 'qa' },
+    children: [
+      { path: '', loadChildren: profileRoutes },
+      { path: '', loadChildren: qualityRoutes },
+      notFound,
+    ],
+  },
+  {
+    path: 'production',
+    loadComponent: workspaceShell,
+    canActivate: [iamGuard],
+    data: { environment: 'production' },
+    children: [
+      { path: '', loadChildren: profileRoutes },
+      { path: '', loadChildren: manufacturingRoutes },
+      { path: '', loadChildren: monitoringRoutes },
+      { path: '', loadChildren: qualitySharedRoutes },
+      notFound,
+    ],
+  },
+  {
+    path: 'administration',
+    loadComponent: workspaceShell,
+    canActivate: [iamGuard],
+    data: { environment: 'administration' },
+    children: [
+      { path: '', loadChildren: iamAdministrationRoutes },
+      { path: '', loadChildren: subscriptionsRoutes },
+      { path: '', loadChildren: organizationsAdministrationRoutes },
+      { path: '', loadChildren: qualitySharedRoutes },
+      { path: '', loadChildren: profileRoutes },
+      notFound,
+    ],
+  },
+  { path: '', loadComponent: layout, children: [notFound] },
+];

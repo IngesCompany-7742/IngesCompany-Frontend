@@ -1,0 +1,71 @@
+// Angular Material theme of DoofPlus, adjusted to the colors and shapes of the Figma mock-ups.
+// Learn more about theming at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$cyan-palette,
+        tertiary: mat.$orange-palette,
+      ),
+      typography: Inter,
+      density: 0,
+    )
+  );
+
+  // DoofPlus brand colors (teal and navy) over the Material system variables.
+  @include mat.theme-overrides(
+    (
+      primary: #0f766e,
+      on-primary: #ffffff,
+      primary-container: #ccfbf1,
+      on-primary-container: #115e59,
+      secondary-container: #f0fdfa,
+      on-secondary-container: #0f766e,
+      surface: #ffffff,
+      on-surface: #0f172a,
+      on-surface-variant: #64748b,
+      surface-container-lowest: #ffffff,
+      surface-container-low: #f8fafc,
+      surface-container: #f8fafc,
+      surface-container-high: #f1f5f9,
+      outline: #cbd5e1,
+      outline-variant: #e2e8f0,
+      error: #dc2626,
+    )
+  );
+
+  @include mat.card-overrides(
+    (
+      outlined-container-shape: 12px,
+      outlined-outline-color: #e2e8f0,
+    )
+  );
+
+  @include mat.form-field-overrides(
+    (
+      outlined-container-shape: 8px,
+    )
+  );
+
+  @include mat.table-overrides(
+    (
+      background-color: #ffffff,
+      header-headline-color: #64748b,
+      header-headline-size: 11px,
+      header-headline-weight: 600,
+      row-item-outline-color: #e2e8f0,
+    )
+  );
+}
+
+body {
+  color-scheme: light;
+  background-color: #f8fafc;
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+  margin: 0;
+  height: 100%;
+}

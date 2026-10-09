@@ -1,0 +1,64 @@
+.stat-label {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.stat-value.teal { color: var(--teal); }
+.stat-value.warn { color: var(--warning); }
+
+.footnote {
+  padding: 16px 20px;
+}
+
+.lookup .mat-mdc-form-field {
+  width: 320px;
+  max-width: 100%;
+}
+
+.not-found {
+  color: var(--danger-dark);
+  font-size: 13px;
+}
+
+.batch {
+  gap: 8px;
+}
+
+.state {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.state .mat-icon {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+}
+
+.state-on-hold { background: var(--warning-bg); color: var(--warning); }
+.state-in-progress, .state-planned { background: var(--mint); color: var(--teal); }
+.state-release-requested, .state-released { background: var(--success-bg); color: var(--success); }
+
+.batch h2 {
+  font-size: 26px;
+}
+
+.label {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.label.danger {
+  color: var(--danger);
+}
