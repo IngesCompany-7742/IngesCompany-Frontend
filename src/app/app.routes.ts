@@ -13,12 +13,19 @@ const about = () =>
 const pageNotFound = () =>
   import('./shared/presentation/views/page-not-found/page-not-found').then(m=>m.PageNotFound);
 
+const iamRoutes = () => import('./iam/presentation/iam.routes').then(m => m.iamRoutes);
+
 /**
  * Define the routes where the toolbar and footer will be used
  */
 export const routes: Routes = [
   { path: 'home', component: Home, title: `${baseTitle} - Home` },
   { path: 'about', loadComponent: about, title: `${baseTitle} - About` },
+
+  /**
+   * Define the routes for the IAM module
+   */
+  { path: 'iam', loadChildren: iamRoutes },
 
   /**
    * Define the routes for the manufacturing module
