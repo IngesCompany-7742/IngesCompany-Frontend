@@ -24,7 +24,7 @@ npm start
 - `npm run server` starts the fake API at `http://localhost:3000/api/v1` (data in `server/db.json`). 
 - `npm start` opens the app at `http://localhost:4200/`.
 
-## 🔐 Demo accounts
+## 🔐 Test accounts
 
 Every account uses the password `DoofPlus2026!` and the two-factor code `482106`.
 
