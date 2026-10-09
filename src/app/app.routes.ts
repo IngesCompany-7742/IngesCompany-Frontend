@@ -7,12 +7,12 @@ const pageNotFound = () =>
   import('./shared/presentation/views/page-not-found/page-not-found').then(m => m.PageNotFound);
 
 const layout = () => import('./shared/presentation/components/layout/layout').then(m => m.Layout);
-const workspaceShell = () =>
-  import('./shared/presentation/components/workspace-shell/workspace-shell').then(m => m.WorkspaceShell);
+const workspaceShell = () => import('./shared/presentation/components/workspace-shell/workspace-shell').then(m => m.WorkspaceShell);
 
 const iamRoutes = () => import('./iam/presentation/iam.routes').then(m => m.iamRoutes);
 const manufacturingRoutes = () => import('./manufacturing/presentation/manufacturing.routes').then(m => m.manufacturingRoutes);
-const iamAdministrationRoutes = () => import('./iam/presentation/iam.routes').then(m => m.iamAdministrationRoutes);
+const iamAdministrationRoutes = () => import('./iam/presentation/iam.routes').then((m) => m.iamAdministrationRoutes);
+const monitoringRoutes = () => import('./monitoring/presentation/monitoring.routes').then((m) => m.monitoringRoutes);
 const subscriptionsRoutes = () => import('./subscriptions/presentation/subscriptions.routes').then(m => m.subscriptionsRoutes);
 
 /**
@@ -25,19 +25,36 @@ const notFound = { path: '**', loadComponent: pageNotFound, title: `${baseTitle}
  * workspace shell and is protected by the IAM guard.
  */
 export const routes: Routes = [
-  { path: '',               redirectTo: '/sign-in', pathMatch: 'full' },
-  { path: 'sign-in',        loadComponent: layout, loadChildren: iamRoutes },
-  { path: 'qa',             loadComponent: workspaceShell, canActivate: [iamGuard], data: { environment: 'qa' }, children: [
-    notFound
-  ]},
-  { path: 'production',     loadComponent: workspaceShell, canActivate: [iamGuard], data: { environment: 'production' }, children: [
-    { path: '', loadChildren: manufacturingRoutes },
-    notFound
-  ]},
-  { path: 'administration', loadComponent: workspaceShell, canActivate: [iamGuard], data: { environment: 'administration' }, children: [
-    { path: '', loadChildren: iamAdministrationRoutes },
-    { path: '', loadChildren: subscriptionsRoutes },
-    notFound
-  ]},
-  { path: '',               loadComponent: layout, children: [notFound] }
+  { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
+  { path: 'sign-in', loadComponent: layout, loadChildren: iamRoutes },
+  {
+    path: 'qa',
+    loadComponent: workspaceShell,
+    canActivate: [iamGuard],
+    data: { environment: 'qa' },
+    children: [notFound],
+  },
+  {
+    path: 'production',
+    loadComponent: workspaceShell,
+    canActivate: [iamGuard],
+    data: { environment: 'production' },
+    children: [
+      { path: '', loadChildren: manufacturingRoutes },
+      { path: '', loadChildren: monitoringRoutes },
+      notFound,
+    ],
+  },
+  {
+    path: 'administration',
+    loadComponent: workspaceShell,
+    canActivate: [iamGuard],
+    data: { environment: 'administration' },
+    children: [
+      { path: '', loadChildren: iamAdministrationRoutes },
+      { path: '', loadChildren: subscriptionsRoutes },
+      notFound,
+    ],
+  },
+  { path: '', loadComponent: layout, children: [notFound] },
 ];
