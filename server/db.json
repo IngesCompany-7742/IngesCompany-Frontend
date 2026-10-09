@@ -826,10 +826,10 @@
       "expiryDate": "2028-09-30",
       "storageLocation": "Q-A12 · Quarantine zone",
       "certificate": "CoA_MI-AC-0926.pdf",
-      "status": "inspection",
+      "status": "sampling",
       "packagingVerified": true,
       "identityVerified": true,
-      "samplingStatus": "requested",
+      "samplingStatus": "pending",
       "allocatedBatch": ""
     }
   ],
