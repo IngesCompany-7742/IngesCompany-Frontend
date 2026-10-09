@@ -58,3 +58,62 @@ graph TD
     IOT -->|Feeds Data| MFG
     ORG -->|Manages| SUB
 ```
+
+
+## 4. Class Diagram (Domain Model)
+
+```mermaid
+classDiagram
+    direction TB
+
+    class UserProfile {
+        +String id
+        +String email
+        +String role
+        +String environment
+        +authenticate()
+    }
+
+    class Batch {
+        +String code
+        +String status
+        +Date manufacturingDate
+        +release()
+    }
+
+    class MasterFormula {
+        +String id
+        +String name
+        +String version
+        +boolean isApproved
+    }
+
+    class Deviation {
+        +String id
+        +String title
+        +String rootCause
+        +String status
+        +submitEvidence()
+    }
+
+    class CapaPlan {
+        +String id
+        +String description
+        +String status
+        +approve()
+    }
+
+    class QualityDocument {
+        +String id
+        +String title
+        +String authorId
+        +String status
+        +createVersion()
+    }
+
+    Batch "*" --> "1" MasterFormula : follows
+    Deviation "*" --> "1" Batch : affects
+    CapaPlan "1" --> "1" Deviation : resolves
+    QualityDocument "*" --> "1" UserProfile : authored by
+    Batch "*" --> "1" UserProfile : released by (QA)
+```
