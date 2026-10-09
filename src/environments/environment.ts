@@ -2,6 +2,10 @@ export const environment = {
   production: true,
   // Fake API (json-server) until the DoofPlus Platform (Web Services) is deployed
   platformProviderApiBaseUrl: 'http://localhost:3000/api/v1',
+  platformProviderOrganizationsEndpointPath: '/organizations',
+  platformProviderFacilitiesEndpointPath: '/facilities',
+  platformProviderUserProfilesEndpointPath: '/user-profiles',
+  platformProviderAdministrativeActivitiesEndpointPath: '/administrative-activities',
   platformProviderPlansEndpointPath: '/plans',
   platformProviderSubscriptionsEndpointPath: '/subscriptions',
   platformProviderInvoicesEndpointPath: '/invoices',
