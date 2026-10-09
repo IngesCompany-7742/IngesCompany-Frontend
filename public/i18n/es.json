@@ -1,94 +1,431 @@
 {
-  "home": {
-    "title": "Bienvenido a DoofPlus",
-    "content": "Gestiona la trazabilidad de lotes, los eventos de calidad y la evidencia regulatoria de tu laboratorio farmacéutico en un solo lugar."
-  },
-  "option": {
-    "home": "Inicio",
-    "about": "Sobre nosotros"
-  },
-  "about": {
-    "eyebrow": "Sobre DoofPlus",
-    "title": "Calidad y trazabilidad para laboratorios farmacéuticos",
-    "content": "DoofPlus centraliza los registros de lotes, las desviaciones y la evidencia de auditoría para que los equipos de calidad y producción cumplan las Buenas Prácticas de Manufactura sin papeleo.",
-    "actions": {
-      "start": "Comenzar",
-      "back-home": "Volver al inicio",
-      "evaluate": "Evaluar DoofPlus"
-    },
-    "panel": {
-      "platform": "Plataforma DoofPlus",
-      "platform-description": "Un solo espacio para calidad y producción",
-      "iot": "Datos del proceso capturados por sensores",
-      "bpm": "Flujos de aprobación y calidad",
-      "ra": "Evidencia para auditorías regulatorias",
-      "saas": "Suscripción en la nube, sin instalación"
-    },
-    "value": {
-      "eyebrow": "Por qué DoofPlus",
-      "title": "Diseñado para entornos regulados",
-      "subtitle": "Cada acción queda registrada para que tu laboratorio esté siempre listo para una auditoría.",
-      "traceability": {
-        "title": "Trazabilidad de lotes",
-        "description": "Sigue cada lote desde las materias primas hasta su liberación."
-      },
-      "monitoring": {
-        "title": "Monitoreo en tiempo real",
-        "description": "Revisa el estado de producción y las alertas de calidad al momento."
-      },
-      "audit": {
-        "title": "Listo para auditorías",
-        "description": "Mantén un audit trail inalterable y genera reportes regulatorios."
-      }
-    },
-    "workflow": {
-      "eyebrow": "Cómo funciona",
-      "title": "Del lote a la liberación",
-      "description": "DoofPlus acompaña el flujo diario de calidad de tu laboratorio.",
-      "items": {
-        "0": "Registra el lote de producción.",
-        "1": "Captura los datos del proceso y registra desviaciones.",
-        "2": "Revisa y aprueba con firma electrónica.",
-        "3": "Libera el lote con toda su evidencia."
-      }
-    },
-    "team": {
-      "eyebrow": "Nuestro equipo",
-      "title": "Hecho por IngesCompany",
-      "description": "Un equipo de estudiantes de Ingeniería de Software de la UPC enfocado en soluciones digitales para la industria farmacéutica."
-    }
-  },
   "page-not-found": {
     "title": "Página no encontrada",
     "content": "La ruta <strong>{{invalid_path}}</strong> no existe.",
-    "go-home": "Ir al inicio"
+    "go-home": "Ir a iniciar sesión"
   },
   "footer": {
-    "product": "Producto",
-    "copyright": "Copyright © 2026 IngesCompany. Derechos reservados",
-    "features": "Características",
-    "contact": "Contacto",
-    "pricing": "Precios",
-    "how-it-works": "Cómo funciona"
+    "copyright": "Copyright © 2026 IngesCompany. Todos los derechos reservados.",
+    "terms": "Términos del servicio",
+    "privacy": "Política de privacidad"
   },
   "manufacturing": {
-    "batch_list": {
-      "title": "Trazabilidad de Lotes Farmacéuticos",
-      "subtitle": "Monitoreo en tiempo real del estado de producción.",
-      "new_batch": "+ Registrar Nuevo Lote",
-      "col_id": "ID Lote",
-      "col_formula": "Fórmula del Producto",
-      "col_quantity": "Cantidad",
-      "col_status": "Estado",
-      "empty": "No se encontraron lotes."
+    "units": "unidades",
+    "formula-status": {
+      "approved": "Aprobada",
+      "pending": "Pendiente",
+      "none": "Sin fórmula",
+      "locked": "Aprobada · bloqueada",
+      "draft": "Borrador"
     },
-    "batch_form": {
-      "title": "Registrar Nuevo Lote",
-      "lbl_id": "ID del Lote:",
-      "lbl_formula": "Fórmula del Producto:",
-      "lbl_quantity": "Cantidad (unidades):",
-      "btn_save": "Guardar Lote"
+    "batch-status": {
+      "planned": "Planificado",
+      "in-progress": "En curso",
+      "on-hold": "En espera",
+      "release-requested": "Liberación solicitada",
+      "released": "Liberado"
+    },
+    "order-status": {
+      "planned": "Planificada",
+      "approved": "Aprobada",
+      "in-progress": "En curso",
+      "on-hold": "En espera",
+      "completed": "Completada"
+    },
+    "operation-status": {
+      "complete": "Completa",
+      "in-progress": "En curso",
+      "on-hold": "En espera",
+      "not-started": "Sin iniciar"
+    },
+    "lot-status": {
+      "quarantine": "Cuarentena",
+      "sampling": "Muestreo",
+      "inspection": "Inspección",
+      "approved": "Aprobado",
+      "rejected": "Rechazado"
+    },
+    "sampling-status": {
+      "pending": "Pendiente",
+      "requested": "Solicitado",
+      "done": "Hecho"
+    },
+    "category": {
+      "api": "API",
+      "excipient": "Excipiente",
+      "packaging": "Empaque"
+    },
+    "products": {
+      "title": "Productos y fórmulas maestras",
+      "subtitle": "Gestiona el catálogo de productos y la fórmula maestra aprobada con la que se fabrica cada lote.",
+      "catalog": "Catálogo de productos",
+      "catalog-text": "{{count}} productos · solo los productos con fórmula maestra aprobada pueden iniciar lotes",
+      "code": "Código de producto",
+      "product": "Producto",
+      "dosage-form": "Forma farmacéutica",
+      "formula": "Fórmula maestra",
+      "status": "Estado",
+      "new": "Nuevo producto",
+      "new-text": "Datos maestros necesarios para fabricar lotes",
+      "name": "Nombre del producto",
+      "code-error": "Usa dos letras y tres dígitos, como AC500.",
+      "duplicate": "El código {{code}} ya existe. Usa un código único.",
+      "register": "Registrar producto",
+      "formula-title": "Fórmula maestra · {{code}} · {{version}}",
+      "formula-text": "Aprobada por {{by}} · Tamaño de lote {{size}} unidades",
+      "component": "Componente",
+      "function": "Función",
+      "quantity": "Cantidad por lote",
+      "supplier": "Proveedor",
+      "no-components": "Esta versión todavía no tiene componentes.",
+      "protected": "Las fórmulas aprobadas están protegidas: cualquier cambio crea una versión nueva que debe aprobarse antes de usarse en un lote. Se rechazan las fórmulas sin componentes o con cantidades no positivas."
+    },
+    "batches": {
+      "subtitle": "Sigue el estado de fabricación, las compuertas de calidad y la disponibilidad para distribución.",
+      "create": "Crear lote",
+      "tab": {
+        "all": "Todos los lotes",
+        "in-progress": "En curso",
+        "on-hold": "En espera",
+        "released": "Liberados"
+      },
+      "batch-product": "Lote / producto",
+      "order-quantity": "Orden / cant.",
+      "owner": "Responsable",
+      "showing": "Mostrando {{shown}} de {{total}} lotes",
+      "lookup": "Búsqueda de lote",
+      "lookup-text": "Código de lote o de empaque",
+      "search": "Buscar",
+      "not-found": "Ningún lote coincide con ese código.",
+      "incident": "Incidente",
+      "last-activity": "Última actividad",
+      "view-genealogy": "Ver genealogía",
+      "definitions": "Definición de estados",
+      "definition-hold": "En curso → En espera",
+      "definition-hold-text": "Un incidente o una compuerta de calidad pausa la ejecución.",
+      "definition-release": "Liberación solicitada → Liberado",
+      "definition-release-text": "Solo QA autorizado puede firmar la liberación final.",
+      "rejected-title": "No se pudo registrar el lote",
+      "rejected": {
+        "duplicate-code": "El número de lote {{code}} ya existe.",
+        "formula-not-approved": "Solo se puede crear un lote de un producto con fórmula maestra aprobada ({{product}} no tiene fórmula aprobada)."
+      },
+      "change-data": "Cambiar datos del lote",
+      "batch-code": "Número de lote",
+      "code-error": "Usa el formato B-26045.",
+      "quantity": "Cantidad",
+      "line": "Línea"
+    },
+    "detail": {
+      "title": "Detalle y trazabilidad del lote",
+      "subtitle": "Genealogía completa del material al producto terminado.",
+      "genealogy": "Genealogía y trazabilidad",
+      "input-lots": "Lotes de entrada",
+      "no-lots": "Todavía no hay lotes asignados.",
+      "allocated": "Asignado a la orden de producción",
+      "target": "Meta {{quantity}} unidades · {{line}} · {{owner}}",
+      "fg-released": "Liberado para distribución",
+      "fg-pending": "Aún no producido · Distribución bloqueada",
+      "history": "Historial de estados",
+      "no-history": "Todavía no hay eventos.",
+      "iot-evidence": "Evidencia IoT"
+    },
+    "orders": {
+      "subtitle": "Órdenes emitidas según fórmulas maestras aprobadas.",
+      "order": "Orden / lote",
+      "planned": "Inicio planificado",
+      "order-title": "Orden de producción",
+      "record": "Registrar operación",
+      "hold-alert": "{{operation}} está en espera por {{reference}}. Solo se pueden agregar registros de contención e incidentes hasta que QA autorice el reinicio.",
+      "execution": "Ejecución de fabricación",
+      "execution-text": "Operaciones de la fórmula maestra vigente",
+      "operation": "Operación",
+      "equipment": "Equipo / responsable",
+      "progress": "Avance",
+      "formula": "Fórmula maestra vigente",
+      "formula-text": "Bloqueada · los cambios requieren una versión aprobada nueva · aprobada el",
+      "ingredient": "Ingrediente / parámetro",
+      "target": "Meta",
+      "tolerance": "Tolerancia",
+      "control": "Control",
+      "context": "Contexto de la orden",
+      "status": "Estado de la orden",
+      "planned-quantity": "Cantidad planificada",
+      "approved": "Aprobada",
+      "planned-execution": "Ejecución planificada",
+      "not-found": "Ninguna orden coincide con ese código."
+    },
+    "receipt": {
+      "title": "Recepción de materias primas",
+      "subtitle": "recepción e inspección en cuarentena",
+      "alert": "El material no está disponible para producción. Las recepciones nuevas entran en cuarentena; Calidad debe aprobarlas antes de asignarlas a una orden.",
+      "step": {
+        "receipt": "Recepción",
+        "sampling": "Muestreo",
+        "inspection": "Inspección",
+        "disposition": "Aprobado / Rechazado"
+      },
+      "details": "Datos de la recepción",
+      "required": "Campos obligatorios",
+      "material": "Material",
+      "supplier": "Proveedor",
+      "supplier-lot": "Lote del proveedor",
+      "internal-lot": "Lote interno",
+      "lot-error": "Usa el formato RM-26105.",
+      "lot-duplicate": "Ese lote interno ya existe.",
+      "quantity": "Cantidad recibida",
+      "expiry": "Fecha de vencimiento",
+      "location": "Ubicación de almacén",
+      "certificate": "Certificado de análisis (CoA)",
+      "attached": "Adjunto",
+      "record": "Registrar recepción",
+      "record-note": "Al registrar, el material pasa a Muestreo.",
+      "lots": "Lotes recibidos",
+      "disposition": "Disposición del material",
+      "checklist": "Lista de inspección",
+      "packaging": "Empaque íntegro",
+      "identity": "Identidad y rotulado verificados",
+      "sampling": "Muestreo de QC",
+      "quality-approval": "Aprobación de calidad",
+      "quality-approval-text": "Espera los resultados del muestreo",
+      "verified": "Verificado",
+      "pending": "Pendiente",
+      "request-inspection": "Solicitar inspección de QC",
+      "disposition-text": "Un especialista QA/QC registra los resultados analíticos y una jefa de calidad autorizada aprueba o rechaza el lote. El rechazo exige un motivo y mantiene el stock segregado."
+    },
+    "overview": {
+      "subtitle": "{{name}}, mantén el plan de hoy en marcha con visibilidad de órdenes, lotes y equipos.",
+      "create-order": "Crear orden de producción",
+      "orders": "Órdenes de hoy",
+      "orders-note": "{{running}} en curso · {{held}} en espera",
+      "output": "Producción de hoy",
+      "output-note": "Unidades producidas por los lotes en curso",
+      "batches": "Lotes en curso",
+      "batches-note": "En 3 líneas de fabricación",
+      "incidents": "Incidentes abiertos",
+      "incidents-note": "Alertas IoT sin cerrar",
+      "view-evidence": "Ver evidencia IoT",
+      "schedule": "Plan de producción",
+      "schedule-text": "Órdenes y lotes de hoy",
+      "readiness": "Disponibilidad de equipos y materiales",
+      "resource": "Recurso",
+      "availability": "Disponibilidad",
+      "assignment": "Asignación",
+      "priorities": "Prioridad de incidentes",
+      "priorities-text": "Incidentes abiertos por severidad",
+      "handover": "Entrega de turno",
+      "handover-1": "Preparación de materiales completa",
+      "handover-1-text": "7 de 8 lotes listos",
+      "handover-2": "Mantenimiento de recubridora pendiente",
+      "handover-2-text": "WO-26087 · Jorge Salas",
+      "handover-3": "Turno tarde a las 14:00",
+      "handover-3-text": "2 órdenes planificadas · 12 operarios"
+    }
+  },
+  "shell": {
+    "back-to-doofplus": "Volver a DoofPlus",
+    "workspace": "Espacio de trabajo",
+    "help": "Ayuda y documentación",
+    "menu": "Abrir menú",
+    "search": "Buscar lotes, documentos, personas",
+    "profile": "Perfil y preferencias",
+    "sign-out": "Cerrar sesión",
+    "utc": "Horas en UTC",
+    "role-based": "Permisos por rol",
+    "filters": "Filtros",
+    "skip-to-content": "Saltar al contenido principal",
+    "home": "Inicio de DoofPlus",
+    "main-navigation": "Navegación del workspace",
+    "user-menu": "Menú de usuario",
+    "legal": "Información legal",
+    "cancel": "Cancelar",
+    "status": "Estado"
+  },
+  "nav": {
+    "quality-overview": "Resumen de calidad",
+    "quality-indicators": "Indicadores de calidad",
+    "quality-documents": "Documentos de calidad",
+    "deviations": "Desviaciones",
+    "capa-plans": "Planes CAPA",
+    "batch-release": "Liberación de lotes",
+    "analytical-results": "Resultados analíticos",
+    "audits": "Auditorías",
+    "audit-trail": "Audit trail",
+    "regulatory-reports": "Reportes regulatorios",
+    "tasks": "Tareas y colaboración",
+    "production-overview": "Resumen de producción",
+    "production-orders": "Órdenes de producción",
+    "products-formulas": "Productos y fórmulas",
+    "batches": "Lotes",
+    "raw-materials": "Materias primas",
+    "equipment-sensors": "Equipos y sensores",
+    "iot-overview": "Resumen IoT",
+    "administration-overview": "Resumen de administración",
+    "users-profiles": "Usuarios y perfiles",
+    "subscription-payments": "Suscripción y pagos",
+    "incidents": "Incidentes"
+  },
+  "environments": {
+    "qa": {
+      "label": "Entorno QA/QC",
+      "role": "Especialista QA/QC",
+      "name": "QA/QC",
+      "short": "QA/QC",
+      "description": "Revisa documentos y resultados analíticos, gestiona desviaciones y CAPA, y libera lotes con tu firma electrónica.",
+      "headline": "Decisiones de calidad respaldadas por evidencia completa",
+      "continue": "Continuar como Especialista QA/QC"
+    },
+    "production": {
+      "label": "Entorno de producción",
+      "role": "Supervisor de producción",
+      "name": "Producción",
+      "short": "Producción",
+      "description": "Emite órdenes de producción, ejecuta lotes según fórmulas maestras, recibe materias primas y responde a alertas IoT.",
+      "headline": "Lotes ejecutados según fórmulas maestras aprobadas",
+      "continue": "Continuar como Supervisor de producción"
+    },
+    "administration": {
+      "label": "Entorno de administración",
+      "role": "Administrador del laboratorio",
+      "name": "Administración",
+      "short": "Administración",
+      "description": "Gestiona la organización y sus plantas, invita usuarios, asigna roles y administra la suscripción.",
+      "headline": "Una organización, el acceso correcto para cada rol",
+      "continue": "Continuar como Administrador del laboratorio"
+    },
+    "features": {
+      "documents": "Documentos y SOP",
+      "analytical-results": "Resultados analíticos",
+      "deviations-capa": "Desviaciones y CAPA",
+      "batch-release": "Liberación de lotes",
+      "audits": "Auditorías y audit trail",
+      "products-formulas": "Productos y fórmulas maestras",
+      "production-orders": "Órdenes de producción",
+      "batch-execution": "Ejecución de lotes",
+      "raw-material-receipt": "Recepción de materias primas",
+      "organization-plants": "Organización y plantas",
+      "users-roles": "Usuarios y roles",
+      "subscription-payments": "Suscripción y pagos",
+      "profile-preferences": "Perfil y preferencias"
+    }
+  },
+  "roles": {
+    "qa-specialist": "Especialista QA",
+    "production-supervisor": "Supervisor de producción",
+    "administrator": "Administrador",
+    "quality-manager": "Jefa de calidad",
+    "internal-auditor": "Auditor interno",
+    "system": "Sistema automático"
+  },
+  "privileges": {
+    "qa-release": "Privilegio de liberación QA",
+    "no-final-release": "Supervisor · Sin liberación final",
+    "administrator": "Administrador",
+    "read-only": "Solo lectura",
+    "none": "Acceso estándar"
+  },
+  "iam": {
+    "selection": {
+      "overline": "Iniciar sesión",
+      "title": "Inicia sesión en DoofPlus",
+      "subtitle": "Elige el entorno en el que trabajas. Cada entorno muestra los módulos y aprobaciones de su rol.",
+      "new-laboratory": "¿Laboratorio nuevo?",
+      "register": "Registra tu organización",
+      "not-customer": "¿Aún no eres cliente?",
+      "see-plans": "Ver planes"
+    },
+    "sign-in": {
+      "title": "Inicia sesión en el entorno {{environment}}",
+      "subtitle": "Usa tu cuenta de trabajo. Después confirmarás tu identidad con un código de dos pasos.",
+      "email": "Correo de trabajo",
+      "password": "Contraseña",
+      "continue": "Continuar",
+      "email-error": "Ingresa un correo de trabajo válido.",
+      "password-error": "Ingresa tu contraseña.",
+      "show-password": "Mostrar contraseña",
+      "hide-password": "Ocultar contraseña",
+      "invalid-title": "El correo o la contraseña son incorrectos.",
+      "invalid-text": "Revisa tus credenciales e inténtalo de nuevo. Tras 5 intentos fallidos la cuenta se bloquea 15 minutos.",
+      "not-your-environment": "¿No es tu entorno?",
+      "choose-another": "Elige otro",
+      "access-note": "El acceso lo otorga el rol que te asignó el administrador del laboratorio.",
+      "two-factor-title": "Autenticación de dos pasos",
+      "two-factor-text": "Ingresa el código de 6 dígitos de tu app de autenticación para confirmar que eres {{name}} ({{email}}).",
+      "code": "Código de autenticación",
+      "digit": "Dígito",
+      "code-hint": "Los códigos cambian cada 30 segundos. Tras 5 intentos fallidos la cuenta se bloquea 15 minutos.",
+      "invalid-code": "El código no es válido. Ingresa el código actual de tu app de autenticación.",
+      "verify": "Verificar y continuar",
+      "back-to-sign-in": "Volver a iniciar sesión",
+      "denied-title": "Acceso no autorizado para este entorno",
+      "denied-text": "Tu identidad fue verificada, pero tu rol ({{role}}) no da acceso al entorno {{environment}}. Pide al administrador del laboratorio que revise tu rol, o continúa en tu propio entorno.",
+      "choose-another-environment": "Elegir otro entorno",
+      "other-account": "Iniciar sesión con otra cuenta"
+    },
+    "status": {
+      "active": "Activo",
+      "invited": "Invitado",
+      "pending": "Pendiente",
+      "accepted": "Aceptada",
+      "expired": "Vencida"
+    },
+    "users": {
+      "subtitle": "Asigna perfiles de mínimo privilegio y revisa el acceso por sede.",
+      "invite": "Invitar usuario",
+      "tab-users": "Usuarios",
+      "tab-profiles": "Perfiles",
+      "tab-invitations": "Invitaciones",
+      "directory": "Directorio de usuarios",
+      "shown": "{{count}} mostrados",
+      "user": "Usuario",
+      "profile": "Perfil",
+      "facility": "Sede",
+      "status": "Estado",
+      "matrix": "Matriz de permisos por perfil",
+      "create-edit": "Crear / editar",
+      "approve-sign": "Aprobar / firmar",
+      "restrictions": "Restricciones",
+      "none": "Ninguno",
+      "selected-profile": "Perfil seleccionado",
+      "can-create": "Puede crear o editar",
+      "can-approve": "Puede aprobar o firmar",
+      "restriction": "Restricción",
+      "access-policy": "Política de acceso",
+      "two-factor": "2FA obligatorio",
+      "all-users": "Todos",
+      "two-factor-text": "Las sesiones vencen tras 15 minutos de inactividad.",
+      "deactivation": "Desactivar conserva el historial",
+      "deactivation-text": "Los registros firmados y los eventos atribuidos nunca se eliminan.",
+      "rbac": "Control de acceso por rol",
+      "rbac-text": "Solo los usuarios autenticados con rol y sede asignados acceden a las funciones. Elegir un segmento público nunca da acceso.",
+      "sent-title": "Invitación enviada.",
+      "sent-text": "{{email}} aparece en Invitaciones hasta que verifique su correo y active el 2FA."
+    },
+    "invite": {
+      "title": "Invitar usuario",
+      "subtitle": "El administrador de la organización puede invitar usuarios dentro del límite del plan (Standard Lab: 10 usuarios; Enterprise: ilimitado).",
+      "active-users": "Usuarios activos",
+      "user-limit": "Límite de usuarios",
+      "pending": "Invitaciones pendientes",
+      "days": "días",
+      "expiry": "Vigencia de la invitación · verificar correo + 2FA",
+      "details": "Datos del usuario y su acceso",
+      "full-name": "Nombre completo",
+      "full-name-error": "Ingresa el nombre completo.",
+      "email": "Correo de trabajo",
+      "email-error": "Ingresa un correo de trabajo válido.",
+      "profile": "Perfil",
+      "facility": "Acceso por sede",
+      "note": "Nota de la invitación",
+      "send": "Enviar invitación",
+      "cancel": "Cancelar",
+      "preview": "Vista previa de permisos",
+      "states": "Estados de la invitación",
+      "duplicate-email": "Correo duplicado",
+      "duplicate": "El usuario ya pertenece a esta organización o ya tiene una invitación.",
+      "state-pending": "El usuario recibe un enlace de verificación; su acceso empieza tras verificar el correo y activar el 2FA.",
+      "sent": "Enviada",
+      "state-sent": "El invitado aparece en Usuarios y perfiles → Invitaciones."
     }
   }
 }
-
