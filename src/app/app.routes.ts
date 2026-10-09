@@ -13,6 +13,7 @@ const workspaceShell = () =>
 
 const iamRoutes = () => import('./iam/presentation/iam.routes').then(m => m.iamRoutes);
 const iamAdministrationRoutes = () => import('./iam/presentation/iam.routes').then(m => m.iamAdministrationRoutes);
+const subscriptionsRoutes = () => import('./subscriptions/presentation/subscriptions.routes').then(m => m.subscriptionsRoutes);
 
 /**
  * Route shown inside a frame when a path does not exist.
@@ -34,6 +35,7 @@ export const routes: Routes = [
   ]},
   { path: 'administration', loadComponent: workspaceShell, canActivate: [iamGuard], data: { environment: 'administration' }, children: [
     { path: '', loadChildren: iamAdministrationRoutes },
+    { path: '', loadChildren: subscriptionsRoutes },
     notFound
   ]},
   { path: '',               loadComponent: layout, children: [
