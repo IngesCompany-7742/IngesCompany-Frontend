@@ -5,5 +5,13 @@ export const environment = {
   platformProviderUsersEndpointPath: '/users',
   platformProviderRoleProfilesEndpointPath: '/role-profiles',
   platformProviderInvitationsEndpointPath: '/invitations',
+  platformProviderProductsEndpointPath: '/products',
+  platformProviderMasterFormulasEndpointPath: '/master-formulas',
+  platformProviderFormulaItemsEndpointPath: '/formula-items',
+  platformProviderProductionOrdersEndpointPath: '/production-orders',
+  platformProviderOperationsEndpointPath: '/operations',
+  platformProviderBatchesEndpointPath: '/batches',
+  platformProviderBatchEventsEndpointPath: '/batch-events',
+  platformProviderMaterialLotsEndpointPath: '/material-lots',
   landingPageUrl: 'https://ingescompany-7742.github.io/IngesCompany-LandingPage/'
 };
