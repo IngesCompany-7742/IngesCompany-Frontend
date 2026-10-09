@@ -13,8 +13,11 @@ const about = () =>
 const pageNotFound = () =>
   import('./shared/presentation/views/page-not-found/page-not-found').then(m=>m.PageNotFound);
 
-const iamRoutes = () => import('./iam/presentation/iam.routes').then(m => m.iamRoutes);
-
+const iamRoutes = () => import('./iam/presentation/iam.routes').then((m) => m.iamRoutes);
+const qualityRoutes = () =>
+  import('./quality/presentation/quality.routes').then((m) => m.qualityRoutes);
+const qualitySharedRoutes = () =>
+  import('./quality/presentation/quality.routes').then((m) => m.qualitySharedRoutes);
 /**
  * Define the routes where the toolbar and footer will be used
  */
