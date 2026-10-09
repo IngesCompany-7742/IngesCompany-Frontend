@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
-import {Home} from './shared/presentation/views/home/home';
-import {About} from './shared/presentation/views/about/about';
-import {PageNotFound} from './shared/presentation/views/page-not-found/page-not-found';
+import { Home } from './shared/presentation/views/home/home';
+import { routes as manufacturingRoutes } from './manufacturing/presentation/manufacturing.routes';
 
 const baseTitle = 'DoofPlus'
 
@@ -20,6 +19,15 @@ const pageNotFound = () =>
 export const routes: Routes = [
   { path: 'home', component: Home, title: `${baseTitle} - Home` },
   { path: 'about', loadComponent: about, title: `${baseTitle} - About` },
+
+  /**
+   * Define the routes for the manufacturing module
+   */
+  ...manufacturingRoutes,
+
+  /**
+   * Define the default route and the wildcard route for page not found
+   */
   { path: '', redirectTo: '/home', pathMatch: 'full'},
-  { path: '**', loadComponent: pageNotFound, title: `${baseTitle} - Page Not Found` },
+  { path: '**', loadComponent: pageNotFound, title: `${baseTitle} - Page Not Found` }
 ];
