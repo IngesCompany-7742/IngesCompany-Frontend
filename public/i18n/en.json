@@ -11,6 +11,12 @@
   },
   "manufacturing": {
     "units": "units",
+    "dosage-forms": {
+      "tablet": "Tablet",
+      "capsule": "Capsule",
+      "syrup": "Syrup",
+      "injectable": "Injectable"
+    },
     "formula-status": {
       "approved": "Approved",
       "pending": "Pending",

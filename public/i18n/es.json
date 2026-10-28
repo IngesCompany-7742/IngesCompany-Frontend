@@ -18,6 +18,12 @@
       "locked": "Aprobada · bloqueada",
       "draft": "Borrador"
     },
+    "dosage-forms": {
+      "tablet": "Tableta",
+      "capsule": "Cápsula",
+      "syrup": "Jarabe",
+      "injectable": "Inyectable"
+    },
     "batch-status": {
       "planned": "Planificado",
       "in-progress": "En curso",
