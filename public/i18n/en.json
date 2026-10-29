@@ -11,6 +11,12 @@
   },
   "manufacturing": {
     "units": "units",
+    "dosage-forms": {
+      "tablet": "Tablet",
+      "capsule": "Capsule",
+      "syrup": "Syrup",
+      "injectable": "Injectable"
+    },
     "formula-status": {
       "approved": "Approved",
       "pending": "Pending",
@@ -713,7 +719,24 @@
       "rbac": "Role-based access control",
       "rbac-text": "Only authenticated users with assigned roles and facility scope can access functions. Choosing a public segment never grants access.",
       "sent-title": "Invitation sent.",
-      "sent-text": "{{email}} appears in Invitations until the user verifies the email and enrolls 2FA."
+      "sent-text": "{{email}} appears in Invitations until the user verifies the email and enrolls 2FA.",
+      "permissions": {
+        "documents": "Documents",
+        "capa": "CAPA",
+        "orders": "Orders",
+        "incidents": "Incidents",
+        "users": "Users",
+        "plans": "Plans",
+        "release-if-authorized": "Release if authorized",
+        "production-records": "Production records",
+        "approve-documents-capa": "Approve documents and CAPA",
+        "none": "None",
+        "no-billing": "No billing access",
+        "cannot-release-batch": "Cannot release batch",
+        "cannot-approve-own": "Cannot approve own records",
+        "read-only-evidence": "Read-only evidence",
+        "no-qa-signing": "No QA release or signing"
+      }
     },
     "invite": {
       "title": "Invite user",

@@ -18,6 +18,12 @@
       "locked": "Aprobada · bloqueada",
       "draft": "Borrador"
     },
+    "dosage-forms": {
+      "tablet": "Tableta",
+      "capsule": "Cápsula",
+      "syrup": "Jarabe",
+      "injectable": "Inyectable"
+    },
     "batch-status": {
       "planned": "Planificado",
       "in-progress": "En curso",
@@ -713,7 +719,24 @@
       "rbac": "Control de acceso por rol",
       "rbac-text": "Solo los usuarios autenticados con rol y sede asignados acceden a las funciones. Elegir un segmento público nunca da acceso.",
       "sent-title": "Invitación enviada.",
-      "sent-text": "{{email}} aparece en Invitaciones hasta que verifique su correo y active el 2FA."
+      "sent-text": "{{email}} aparece en Invitaciones hasta que verifique su correo y active el 2FA.",
+      "permissions": {
+        "documents": "Documentos",
+        "capa": "CAPA",
+        "orders": "Órdenes",
+        "incidents": "Incidentes",
+        "users": "Usuarios",
+        "plans": "Planes",
+        "release-if-authorized": "Liberación si está autorizado",
+        "production-records": "Registros de producción",
+        "approve-documents-capa": "Aprobar documentos y CAPA",
+        "none": "Ninguno",
+        "no-billing": "Sin acceso a facturación",
+        "cannot-release-batch": "No puede liberar lotes",
+        "cannot-approve-own": "No puede aprobar sus propios registros",
+        "read-only-evidence": "Solo lectura de evidencias",
+        "no-qa-signing": "Sin firma ni liberación de QA"
+      }
     },
     "invite": {
       "title": "Invitar usuario",

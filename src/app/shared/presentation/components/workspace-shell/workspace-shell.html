@@ -63,8 +63,8 @@
         <p>{{ current.organizationName }} · {{ current.plant }} · {{ today() }} · {{ 'shell.utc' | translate }} · {{ 'shell.role-based' | translate }}</p>
       }
       <nav [attr.aria-label]="'shell.legal' | translate">
-        <a [href]="landingUrl + 'terms.html'">{{ 'footer.terms' | translate }}</a>
-        <a [href]="landingUrl + 'privacy.html'">{{ 'footer.privacy' | translate }}</a>
+        <a [href]="landingUrl + 'terms.html'" target="_blank" rel="noopener">{{ 'footer.terms' | translate }}</a>
+        <a [href]="landingUrl + 'privacy.html'" target="_blank" rel="noopener">{{ 'footer.privacy' | translate }}</a>
       </nav>
     </footer>
   </mat-sidenav-content>

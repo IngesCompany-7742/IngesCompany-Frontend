@@ -79,4 +79,7 @@ export class UserManagement implements OnInit {
   protected toneOf(role: string): string {
     return this.store.roleProfiles().find(profile => profile.key === role)?.tone ?? 'neutral';
   }
+  protected normalizeKey(value: string): string {
+    return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
 }

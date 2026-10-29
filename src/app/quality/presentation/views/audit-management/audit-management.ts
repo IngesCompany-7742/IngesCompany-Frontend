@@ -1,8 +1,7 @@
 import {Component, computed, inject, signal} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {TranslatePipe} from '@ngx-translate/core';
-import {PageHeader} from '../../../../shared/presentation/components/page-header/page-header';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';import {PageHeader} from '../../../../shared/presentation/components/page-header/page-header';
 import {QualityStore} from '../../../application/quality.store';
 import {AuditFinding} from '../../../domain/model/audit-finding.entity';
 import {MatCard} from '@angular/material/card';
@@ -12,14 +11,28 @@ import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatOption, MatSelect} from '@angular/material/select';
 
+
 /**
  * Audits and findings: finding register, selected finding, audit plan and evidence package.
  */
 @Component({
   selector: 'app-audit-management',
-  imports: [MatCard, MatButton, MatTableModule, MatFormField, MatLabel, MatInput, MatSelect, MatOption, DatePipe, ReactiveFormsModule, TranslatePipe, PageHeader],
+  imports: [
+    MatCard,
+    MatButton,
+    MatTableModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatSelect,
+    MatOption,
+    DatePipe,
+    ReactiveFormsModule,
+    TranslatePipe,
+    PageHeader,
+  ],
   templateUrl: './audit-management.html',
-  styleUrl: './audit-management.css'
+  styleUrl: './audit-management.css',
 })
 export class AuditManagement {
   protected readonly store = inject(QualityStore);
@@ -28,6 +41,7 @@ export class AuditManagement {
    * Audit shown.
    */
   protected readonly audit = computed(() => this.store.audits()[0]);
+  private readonly translate = inject(TranslateService);
 
   /**
    * Findings of the audit.
@@ -37,7 +51,9 @@ export class AuditManagement {
   /**
    * Findings already closed.
    */
-  protected readonly closedCount = computed(() => this.findings().filter(item => item.status === 'closed').length);
+  protected readonly closedCount = computed(
+    () => this.findings().filter((item) => item.status === 'closed').length,
+  );
 
   /**
    * Code of the selected finding.
@@ -47,7 +63,9 @@ export class AuditManagement {
   /**
    * Selected finding.
    */
-  protected readonly selected = computed(() => this.findings().find(item => item.code === this.selectedCode()));
+  protected readonly selected = computed(() =>
+    this.findings().find((item) => item.code === this.selectedCode()),
+  );
 
   /**
    * Evidence of the audit.
@@ -63,10 +81,10 @@ export class AuditManagement {
    * New finding form.
    */
   protected readonly form = new FormGroup({
-    title: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
-    classification: new FormControl('minor', {nonNullable: true}),
-    owner: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
-    observation: new FormControl('', {nonNullable: true, validators: [Validators.required]})
+    title: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    classification: new FormControl('minor', { nonNullable: true }),
+    owner: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    observation: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
   });
 
   /**
@@ -74,7 +92,15 @@ export class AuditManagement {
    * @param status - Finding status.
    */
   protected toneOf(status: string): string {
-    return ({'evidence-pending': 'chip-warning', 'in-review': 'chip-info', closed: 'chip-success'} as Record<string, string>)[status] ?? 'chip-neutral';
+    return (
+      (
+        {
+          'evidence-pending': 'chip-warning',
+          'in-review': 'chip-info',
+          closed: 'chip-success',
+        } as Record<string, string>
+      )[status] ?? 'chip-neutral'
+    );
   }
 
   /**
@@ -89,13 +115,39 @@ export class AuditManagement {
     }
     const value = this.form.getRawValue();
     const code = `F-0${this.findings().length + 1}`;
-    this.store.addFinding(new AuditFinding({
-      id: 0, auditCode: audit.code, code, title: value.title.trim(), classification: value.classification, owner: value.owner.trim(),
-      dueAt: new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10), status: 'evidence-pending', observation: value.observation.trim(),
-      response: '', closureRequirement: 'Independent reviewer verifies the corrective evidence.'
-    }));
+    this.store.addFinding(
+      new AuditFinding({
+        id: 0,
+        auditCode: audit.code,
+        code,
+        title: value.title.trim(),
+        classification: value.classification,
+        owner: value.owner.trim(),
+        dueAt: new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10),
+        status: 'evidence-pending',
+        observation: value.observation.trim(),
+        response: '',
+        closureRequirement: 'Independent reviewer verifies the corrective evidence.',
+      }),
+    );
     this.selectedCode.set(code);
-    this.form.reset({title: '', classification: 'minor', owner: '', observation: ''});
+    this.form.reset({ title: '', classification: 'minor', owner: '', observation: '' });
     this.adding.set(false);
+  }
+
+  /**
+   * Translates evidence metadata when language is Spanish.
+   * @param detail - Raw detail text.
+   */
+  protected formatDetail(detail: string): string {
+    if (!detail) return '';
+    if (this.translate.currentLang() === 'es') {
+      return detail
+        .replace(/Version/g, 'Versión')
+        .replace(/Reviewed/g, 'Revisado')
+        .replace(/Uploaded/g, 'Subido')
+        .replace(/questions/g, 'preguntas');
+    }
+    return detail;
   }
 }
