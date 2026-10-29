@@ -10,20 +10,33 @@ import {MatCard} from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
-import {MatInput} from '@angular/material/input';
+import { MatInput } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 /**
  * CAPA plan: actions with owners and due dates, root cause, effectiveness check and the evidence required to route it for approval.
  */
 @Component({
   selector: 'app-capa-management',
-  imports: [MatIcon, MatCard, MatButton, MatTableModule, MatFormField, MatLabel, MatInput, DatePipe, ReactiveFormsModule, TranslatePipe, PageHeader],
+  imports: [
+    MatIcon,
+    MatCard,
+    MatButton,
+    MatTableModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    DatePipe,
+    ReactiveFormsModule,
+    TranslatePipe,
+    PageHeader,
+  ],
   templateUrl: './capa-management.html',
-  styleUrl: './capa-management.css'
+  styleUrl: './capa-management.css',
 })
 export class CapaManagement {
   protected readonly store = inject(QualityStore);
-
+  private readonly snackBar = inject(MatSnackBar);
   /**
    * Code of the plan shown.
    */
@@ -32,7 +45,9 @@ export class CapaManagement {
   /**
    * The plan.
    */
-  protected readonly plan = computed(() => this.store.capaPlans().find(item => item.code === this.code()));
+  protected readonly plan = computed(() =>
+    this.store.capaPlans().find((item) => item.code === this.code()),
+  );
 
   /**
    * Actions of the plan.
@@ -42,12 +57,16 @@ export class CapaManagement {
   /**
    * Actions whose evidence is attached.
    */
-  protected readonly attached = computed(() => this.actions().filter(action => action.evidenceAttached).length);
+  protected readonly attached = computed(
+    () => this.actions().filter((action) => action.evidenceAttached).length,
+  );
 
   /**
    * Deviation that originated the plan.
    */
-  protected readonly deviation = computed(() => this.store.deviations().find(item => item.code === this.plan()?.sourceDeviation));
+  protected readonly deviation = computed(() =>
+    this.store.deviations().find((item) => item.code === this.plan()?.sourceDeviation),
+  );
 
   /**
    * Reasons why the plan could not be routed.
@@ -57,12 +76,12 @@ export class CapaManagement {
   /**
    * Root cause of the plan.
    */
-  protected readonly rootCause = new FormControl('', {nonNullable: true});
+  protected readonly rootCause = new FormControl('', { nonNullable: true });
 
   /**
    * New action title.
    */
-  protected readonly newAction = new FormControl('', {nonNullable: true});
+  protected readonly newAction = new FormControl('', { nonNullable: true });
 
   /**
    * Fills the root cause when the plan changes.
@@ -79,7 +98,16 @@ export class CapaManagement {
    * @param status - Action status.
    */
   protected toneOf(status: string): string {
-    return ({open: 'chip-warning', planned: 'chip-neutral', 'in-review': 'chip-teal', complete: 'chip-success'} as Record<string, string>)[status] ?? 'chip-neutral';
+    return (
+      (
+        {
+          open: 'chip-warning',
+          planned: 'chip-neutral',
+          'in-review': 'chip-teal',
+          complete: 'chip-success',
+        } as Record<string, string>
+      )[status] ?? 'chip-neutral'
+    );
   }
 
   /**
@@ -91,6 +119,9 @@ export class CapaManagement {
     plan.rootCause = this.rootCause.value.trim();
     this.store.saveCapa(plan);
     this.rootCause.markAsPristine();
+    this.snackBar.open('Root cause guardado con éxito / Root cause saved', 'OK', {
+      duration: 3000,
+    });
   }
 
   /**
@@ -110,10 +141,19 @@ export class CapaManagement {
     const title = this.newAction.value.trim();
     if (!title) return;
     const number = this.actions().length + 1;
-    this.store.addAction(new CapaAction({
-      id: 0, capaCode: this.code(), code: `PA-0${number}`, title, owner: this.plan()?.owner ?? '',
-      dueAt: new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10), status: 'open', evidence: 'Evidence of completion', evidenceAttached: false
-    }));
+    this.store.addAction(
+      new CapaAction({
+        id: 0,
+        capaCode: this.code(),
+        code: `PA-0${number}`,
+        title,
+        owner: this.plan()?.owner ?? '',
+        dueAt: new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10),
+        status: 'open',
+        evidence: 'Evidence of completion',
+        evidenceAttached: false,
+      }),
+    );
     this.newAction.reset();
   }
 }
