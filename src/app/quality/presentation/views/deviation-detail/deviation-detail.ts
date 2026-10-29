@@ -12,20 +12,37 @@ import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
-import {MatOption, MatSelect} from '@angular/material/select';
+import { MatOption, MatSelect } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Evidence } from '../../../domain/model/evidence.entity';
 
 /**
  * Deviation report: investigation and risk assessment (RPN), evidence register, disposition and timeline.
  */
 @Component({
   selector: 'app-deviation-detail',
-  imports: [MatCard, MatButton, MatIcon, MatFormField, MatLabel, MatInput, MatSelect, MatOption, DatePipe, ReactiveFormsModule, RouterLink, TranslatePipe, PageHeader],
+  imports: [
+    MatCard,
+    MatButton,
+    MatIcon,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatSelect,
+    MatOption,
+    DatePipe,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslatePipe,
+    PageHeader,
+  ],
   templateUrl: './deviation-detail.html',
-  styleUrl: './deviation-detail.css'
+  styleUrl: './deviation-detail.css',
 })
 export class DeviationDetail {
   protected readonly store = inject(QualityStore);
   private readonly route = inject(ActivatedRoute);
+  private readonly snackBar = inject(MatSnackBar);
 
   /**
    * Code of the deviation shown.
@@ -35,7 +52,9 @@ export class DeviationDetail {
   /**
    * The deviation.
    */
-  protected readonly deviation = computed(() => this.store.deviations().find(item => item.code === this.code()));
+  protected readonly deviation = computed(() =>
+    this.store.deviations().find((item) => item.code === this.code()),
+  );
 
   /**
    * Evidence of the deviation.
@@ -56,15 +75,17 @@ export class DeviationDetail {
    * Investigation form.
    */
   protected readonly form = new FormGroup({
-    summary: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
-    classification: new FormControl('major', {nonNullable: true}),
-    containment: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
-    severity: new FormControl(1, {nonNullable: true}),
-    likelihood: new FormControl(1, {nonNullable: true}),
-    detectability: new FormControl(1, {nonNullable: true})
+    summary: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    classification: new FormControl('major', { nonNullable: true }),
+    containment: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    severity: new FormControl(1, { nonNullable: true }),
+    likelihood: new FormControl(1, { nonNullable: true }),
+    detectability: new FormControl(1, { nonNullable: true }),
   });
 
-  private readonly values = toSignal(this.form.valueChanges, {initialValue: this.form.getRawValue()});
+  private readonly values = toSignal(this.form.valueChanges, {
+    initialValue: this.form.getRawValue(),
+  });
 
   /**
    * Risk priority number: severity × likelihood × detectability.
@@ -80,10 +101,15 @@ export class DeviationDetail {
   constructor() {
     effect(() => {
       const deviation = this.deviation();
-      if (deviation) this.form.reset({
-        summary: deviation.summary, classification: deviation.classification, containment: deviation.containment,
-        severity: deviation.severity, likelihood: deviation.likelihood, detectability: deviation.detectability
-      });
+      if (deviation)
+        this.form.reset({
+          summary: deviation.summary,
+          classification: deviation.classification,
+          containment: deviation.containment,
+          severity: deviation.severity,
+          likelihood: deviation.likelihood,
+          detectability: deviation.detectability,
+        });
     });
   }
 
@@ -99,11 +125,24 @@ export class DeviationDetail {
     }
     const value = this.form.getRawValue();
     const updated = new Deviation({
-      id: deviation.id, code: deviation.code, title: deviation.title, batchCode: deviation.batchCode, orderCode: deviation.orderCode,
-      summary: value.summary, classification: value.classification, containment: value.containment,
-      severity: Number(value.severity), likelihood: Number(value.likelihood), detectability: Number(value.detectability),
-      status: deviation.status, rootCause: deviation.rootCause, capaCode: deviation.capaCode, reportedBy: deviation.reportedBy,
-      reportedAt: deviation.reportedAt, owner: deviation.owner, dueAt: deviation.dueAt
+      id: deviation.id,
+      code: deviation.code,
+      title: deviation.title,
+      batchCode: deviation.batchCode,
+      orderCode: deviation.orderCode,
+      summary: value.summary,
+      classification: value.classification,
+      containment: value.containment,
+      severity: Number(value.severity),
+      likelihood: Number(value.likelihood),
+      detectability: Number(value.detectability),
+      status: deviation.status,
+      rootCause: deviation.rootCause,
+      capaCode: deviation.capaCode,
+      reportedBy: deviation.reportedBy,
+      reportedAt: deviation.reportedAt,
+      owner: deviation.owner,
+      dueAt: deviation.dueAt,
     });
     this.submitResult.set(this.store.submitAssessment(updated) ? 'submitted' : 'blocked');
   }
@@ -116,4 +155,14 @@ export class DeviationDetail {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) this.store.attachEvidence(this.code(), file.name);
   }
+
+  /**
+   * Removes an attached evidence file.
+   * @param item - Evidence to remove.
+   */
+  protected removeEvidence(item: Evidence): void {
+    this.store.deleteEvidence(item);
+    this.snackBar.open('Evidencia eliminada / Evidence removed', 'OK', { duration: 2500 });
+  }
 }
+
