@@ -11,20 +11,32 @@ import {MatCard} from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
-import {MatInput} from '@angular/material/input';
-
+import { MatInput } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
 /**
  * Raw-material receipt: lots in quarantine, receipt form, inspection checklist and disposition.
  */
 @Component({
   selector: 'app-material-receipt',
-  imports: [MatIcon, MatCard, MatButton, MatTableModule, MatFormField, MatLabel, MatInput, DatePipe, ReactiveFormsModule, TranslatePipe, PageHeader],
+  imports: [
+    MatIcon,
+    MatCard,
+    MatButton,
+    MatTableModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    DatePipe,
+    ReactiveFormsModule,
+    TranslatePipe,
+    PageHeader,
+  ],
   templateUrl: './material-receipt.html',
-  styleUrl: './material-receipt.css'
+  styleUrl: './material-receipt.css',
 })
 export class MaterialReceipt extends BaseForm {
   protected readonly store = inject(ManufacturingStore);
-
+  private readonly snackBar = inject(MatSnackBar);
   /**
    * Steps of the receipt flow.
    */
@@ -38,35 +50,58 @@ export class MaterialReceipt extends BaseForm {
   /**
    * Lot shown in the checklist: the selected one or the newest.
    */
-  protected readonly selected = computed(() =>
-    this.store.materialLots().find(lot => lot.code === this.selectedCode()) ?? this.newestLot());
+  protected readonly selected = computed(
+    () =>
+      this.store.materialLots().find((lot) => lot.code === this.selectedCode()) ?? this.newestLot(),
+  );
 
   /**
    * Newest lot that is not approved yet.
    */
   private readonly newestLot = computed(() =>
-    [...this.store.materialLots()].sort((a, b) => b.code.localeCompare(a.code)).find(lot => lot.status !== 'approved'));
+    [...this.store.materialLots()]
+      .sort((a, b) => b.code.localeCompare(a.code))
+      .find((lot) => lot.status !== 'approved'),
+  );
 
   /**
    * Index of the current step of the selected lot.
    */
   protected readonly stepIndex = computed(() => {
     const status = this.selected()?.status;
-    return status === 'quarantine' ? 0 : status === 'sampling' ? 1 : status === 'inspection' ? 2 : 3;
+    return status === 'quarantine'
+      ? 0
+      : status === 'sampling'
+        ? 1
+        : status === 'inspection'
+          ? 2
+          : 3;
   });
 
   /**
    * Receipt form.
    */
   protected readonly form = new FormGroup({
-    material: new FormControl('Paracetamol (API)', {nonNullable: true, validators: [Validators.required]}),
-    supplier: new FormControl('Meridian Ingredients', {nonNullable: true, validators: [Validators.required]}),
-    supplierLot: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
-    code: new FormControl('', {nonNullable: true, validators: [Validators.required, Validators.pattern(/^RM-\d{5}$/)]}),
-    quantity: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
-    expiryDate: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
-    storageLocation: new FormControl('Q-A12 · Quarantine zone', {nonNullable: true, validators: [Validators.required]}),
-    certificate: new FormControl('', {nonNullable: true, validators: [Validators.required]})
+    material: new FormControl('Paracetamol (API)', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    supplier: new FormControl('Meridian Ingredients', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    supplierLot: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    code: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.pattern(/^RM-\d{5}$/)],
+    }),
+    quantity: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    expiryDate: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    storageLocation: new FormControl('Q-A12 · Quarantine zone', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    certificate: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
   });
 
   /**
@@ -89,19 +124,53 @@ export class MaterialReceipt extends BaseForm {
   protected record(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.snackBar.open(
+        'Por favor completa todos los campos requeridos y adjunta el certificado (PDF)',
+        'OK',
+        { duration: 4000 },
+      );
       return;
     }
     const value = this.form.getRawValue();
-    this.duplicateLot.set(this.store.materialLots().some(lot => lot.code === value.code));
-    if (this.duplicateLot()) return;
-    this.store.addMaterialLot(new MaterialLot({
-      id: 0, code: value.code, receiptCode: value.code.replace('RM-', 'RCV-'), material: value.material,
-      category: value.material.includes('API') ? 'api' : 'excipient', supplier: value.supplier, supplierLot: value.supplierLot,
-      quantity: value.quantity, expiryDate: value.expiryDate, storageLocation: value.storageLocation, certificate: value.certificate,
-      status: 'sampling', packagingVerified: true, identityVerified: true, samplingStatus: 'pending', allocatedBatch: ''
-    }));
+    this.duplicateLot.set(this.store.materialLots().some((lot) => lot.code === value.code));
+    if (this.duplicateLot()) {
+      this.snackBar.open('El código de lote interno ya existe', 'OK', { duration: 3000 });
+      return;
+    }
+    this.store.addMaterialLot(
+      new MaterialLot({
+        id: 0,
+        code: value.code,
+        receiptCode: value.code.replace('RM-', 'RCV-'),
+        material: value.material,
+        category: value.material.includes('API') ? 'api' : 'excipient',
+        supplier: value.supplier,
+        supplierLot: value.supplierLot,
+        quantity: value.quantity,
+        expiryDate: value.expiryDate,
+        storageLocation: value.storageLocation,
+        certificate: value.certificate,
+        status: 'sampling',
+        packagingVerified: true,
+        identityVerified: true,
+        samplingStatus: 'pending',
+        allocatedBatch: '',
+      }),
+    );
     this.selectedCode.set(value.code);
-    this.form.reset();
+    this.form.reset({
+      material: 'Paracetamol (API)',
+      supplier: 'Meridian Ingredients',
+      supplierLot: '',
+      code: '',
+      quantity: '',
+      expiryDate: '',
+      storageLocation: 'Q-A12 · Quarantine zone',
+      certificate: '',
+    });
+    this.snackBar.open(`Lote ${value.code} registrado con éxito y enviado a muestreo`, 'OK', {
+      duration: 3500,
+    });
   }
 
   /**
