@@ -69,13 +69,30 @@
           <h2>{{ 'iam.invite.preview' | translate }}</h2>
           <p class="sub">{{ 'roles.' + profile.key | translate }} · {{ form.controls.facility.value }}</p>
           <div class="permission allowed">
-            <div><strong>{{ 'iam.users.can-create' | translate }}</strong><span class="sub">{{ profile.createEdit.join(', ') || ('iam.users.none' | translate) }}</span></div>
+            <div>
+              <strong>{{ 'iam.users.can-create' | translate }}</strong>
+              <span class="sub">
+                @if (profile.createEdit.length) {
+                  @for (item of profile.createEdit; track item; let last = $last) {
+                    {{ ('iam.users.permissions.' + item.toLowerCase()) | translate }}{{ last ? '' : ', ' }}
+                  }
+                } @else {
+                  {{ 'iam.users.none' | translate }}
+                }
+              </span>
+            </div>
           </div>
           <div class="permission allowed">
-            <div><strong>{{ 'iam.users.can-approve' | translate }}</strong><span class="sub">{{ profile.approveSign }}</span></div>
+            <div>
+              <strong>{{ 'iam.users.can-approve' | translate }}</strong>
+              <span class="sub">{{ ('iam.users.permissions.' + normalizeKey(profile.approveSign)) | translate }}</span>
+            </div>
           </div>
           <div class="permission denied">
-            <div><strong>{{ 'iam.users.restriction' | translate }}</strong><span class="sub">{{ profile.restriction }}</span></div>
+            <div>
+              <strong>{{ 'iam.users.restriction' | translate }}</strong>
+              <span class="sub">{{ ('iam.users.permissions.' + normalizeKey(profile.restriction)) | translate }}</span>
+            </div>
           </div>
         </mat-card>
       }

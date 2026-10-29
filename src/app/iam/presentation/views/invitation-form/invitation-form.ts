@@ -20,12 +20,21 @@ import {Invitation} from '../../../domain/model/invitation.entity';
 @Component({
   selector: 'app-invitation-form',
   imports: [
-    ReactiveFormsModule, RouterLink, TranslatePipe,
-    MatCard, MatButton, MatIcon, MatFormField, MatError, MatInput, MatSelect, MatOption,
-    PageHeader
+    ReactiveFormsModule,
+    RouterLink,
+    TranslatePipe,
+    MatCard,
+    MatButton,
+    MatIcon,
+    MatFormField,
+    MatError,
+    MatInput,
+    MatSelect,
+    MatOption,
+    PageHeader,
   ],
   templateUrl: './invitation-form.html',
-  styleUrl: './invitation-form.css'
+  styleUrl: './invitation-form.css',
 })
 export class InvitationForm extends BaseForm implements OnInit {
   protected readonly store = inject(IamStore);
@@ -40,23 +49,35 @@ export class InvitationForm extends BaseForm implements OnInit {
    * Invitation form.
    */
   protected readonly form = new FormGroup({
-    fullName: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
-    email: new FormControl('', {nonNullable: true, validators: [Validators.required, Validators.email]}),
-    role: new FormControl('internal-auditor', {nonNullable: true, validators: [Validators.required]}),
-    facility: new FormControl('Ate manufacturing', {nonNullable: true, validators: [Validators.required]}),
-    note: new FormControl('', {nonNullable: true})
+    fullName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email],
+    }),
+    role: new FormControl('internal-auditor', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    facility: new FormControl('Ate manufacturing', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    note: new FormControl('', { nonNullable: true }),
   });
 
   /**
    * Role selected in the form.
    */
-  private readonly selectedRole = toSignal(this.form.controls.role.valueChanges, {initialValue: this.form.controls.role.value});
+  private readonly selectedRole = toSignal(this.form.controls.role.valueChanges, {
+    initialValue: this.form.controls.role.value,
+  });
 
   /**
    * Profile of the selected role, shown in the permission preview.
    */
   protected readonly selectedProfile = computed(() =>
-    this.store.roleProfiles().find(profile => profile.key === this.selectedRole()));
+    this.store.roleProfiles().find((profile) => profile.key === this.selectedRole()),
+  );
 
   /**
    * Facilities a user can be given access to.
@@ -81,15 +102,24 @@ export class InvitationForm extends BaseForm implements OnInit {
     const value = this.form.getRawValue();
     this.duplicateEmail.set(this.store.isEmailTaken(value.email));
     if (this.duplicateEmail()) return;
-    this.store.addInvitation(new Invitation({
-      id: 0,
-      fullName: value.fullName.trim(),
-      email: value.email.trim().toLowerCase(),
-      role: value.role,
-      facility: value.facility,
-      note: value.note.trim(),
-      status: 'pending',
-      sentAt: new Date().toISOString()
-    }), this.router);
+    this.store.addInvitation(
+      new Invitation({
+        id: 0,
+        fullName: value.fullName.trim(),
+        email: value.email.trim().toLowerCase(),
+        role: value.role,
+        facility: value.facility,
+        note: value.note.trim(),
+        status: 'pending',
+        sentAt: new Date().toISOString(),
+      }),
+      this.router,
+    );
+  }
+  protected normalizeKey(value: string): string {
+    return value
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
   }
 }
