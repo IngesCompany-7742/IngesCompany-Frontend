@@ -1715,10 +1715,10 @@
       "event": "Release validation",
       "record": "B-26041",
       "result": "Blocked",
-      "field": "",
-      "before": "",
-      "after": "",
-      "reason": ""
+      "field": "Release eligibility",
+      "before": "Pending checks",
+      "after": "Blocked",
+      "reason": "Open critical deviation DEV-26017"
     },
     {
       "id": 2,
@@ -1729,10 +1729,10 @@
       "event": "Evidence attached",
       "record": "DEV-26017",
       "result": "Recorded",
-      "field": "",
-      "before": "",
-      "after": "",
-      "reason": ""
+      "field": "Evidence files",
+      "before": "None",
+      "after": "Attached (2 files)",
+      "reason": "Coater temperature inspection"
     },
     {
       "id": 3,
@@ -1757,10 +1757,10 @@
       "event": "Alert acknowledged",
       "record": "ALT-26031",
       "result": "Acknowledged",
-      "field": "",
-      "before": "",
-      "after": "",
-      "reason": ""
+      "field": "Alert status",
+      "before": "Triggered",
+      "after": "Acknowledged",
+      "reason": "Operator attended sensor probe"
     },
     {
       "id": 5,
@@ -1771,10 +1771,10 @@
       "event": "Threshold exceeded",
       "record": "ALT-26031",
       "result": "Alert created",
-      "field": "",
-      "before": "",
-      "after": "",
-      "reason": ""
+      "field": "Temperature (°C)",
+      "before": "21.5",
+      "after": "25.8",
+      "reason": "Upper limit exceeded (> 25.0 °C)"
     },
     {
       "id": 6,
@@ -1785,10 +1785,10 @@
       "event": "2FA verification",
       "record": "Session S-8912",
       "result": "Success",
-      "field": "",
-      "before": "",
-      "after": "",
-      "reason": ""
+      "field": "Authentication",
+      "before": "Challenge pending",
+      "after": "Verified",
+      "reason": "TOTP passcode accepted"
     }
   ],
   "regulatory-reports": [
