@@ -1,4 +1,4 @@
-import {Component, computed, inject, signal} from '@angular/core';
+import {Component, computed, effect, inject, input, signal} from '@angular/core';
 import {DecimalPipe} from '@angular/common';
 import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
 import {TranslatePipe} from '@ngx-translate/core';
@@ -38,6 +38,18 @@ export class BatchRelease {
    * Code of the batch shown.
    */
   protected readonly code = signal('B-26038');
+
+  /**
+   * Code received in the URL (`?code=`), for example from the search of the top bar.
+   */
+  readonly requestedCode = input<string | undefined>(undefined, {alias: 'code'});
+
+  constructor() {
+    effect(() => {
+      const requested = this.requestedCode();
+      if (requested) this.code.set(requested);
+    });
+  }
 
   /**
    * The batch.

@@ -1,4 +1,4 @@
-import {Component, computed, inject, signal} from '@angular/core';
+import {Component, computed, effect, inject, input, signal} from '@angular/core';
 import {DatePipe} from '@angular/common';
 import {TranslatePipe} from '@ngx-translate/core';
 import {MatFormField} from '@angular/material/form-field';
@@ -28,6 +28,18 @@ export class DocumentManagement {
    * Code of the document shown.
    */
   protected readonly code = signal('SOP-QA-014');
+
+  /**
+   * Code received in the URL (`?code=`), for example from the search of the top bar.
+   */
+  readonly requestedCode = input<string | undefined>(undefined, {alias: 'code'});
+
+  constructor() {
+    effect(() => {
+      const requested = this.requestedCode();
+      if (requested) this.code.set(requested);
+    });
+  }
 
   /**
    * Codes of every controlled document.

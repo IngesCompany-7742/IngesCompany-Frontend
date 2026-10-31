@@ -1,3 +1,5 @@
+import {environment} from '../../../environments/environment';
+
 /**
  * Environments of the Web Application. Each role signs in to one of them and sees its own navigation.
  */
@@ -15,6 +17,20 @@ export interface NavigationOption {
    * Translation key of the label.
    */
   label: string;
+}
+
+/**
+ * Collection searched by exact code from the top bar, and the page that opens a record of it.
+ */
+export interface SearchTarget {
+  /**
+   * Endpoint path of the collection, relative to the API base URL.
+   */
+  endpoint: string;
+  /**
+   * Route that opens the record; `{code}` is replaced by the code found.
+   */
+  route: string;
 }
 
 /**
@@ -37,6 +53,14 @@ export interface EnvironmentProfile {
    * Sidebar links of the workspace.
    */
   navigation: NavigationOption[];
+  /**
+   * Collections searched from the top bar, in order; empty when the environment has no search.
+   */
+  search: SearchTarget[];
+  /**
+   * Code shown as an example when a search finds nothing.
+   */
+  searchExample: string;
 }
 
 /**
@@ -59,7 +83,12 @@ export const workspaceEnvironments: Record<WorkspaceEnvironment, EnvironmentProf
       { link: '/qa/audit-trail', label: 'nav.audit-trail' },
       { link: '/qa/regulatory-reports', label: 'nav.regulatory-reports' },
       { link: '/qa/tasks', label: 'nav.tasks' }
-    ]
+    ],
+    search: [
+      { endpoint: environment.platformProviderQualityDocumentsEndpointPath, route: '/qa/documents?code={code}' },
+      { endpoint: environment.platformProviderBatchesEndpointPath, route: '/qa/batch-release?code={code}' }
+    ],
+    searchExample: 'SOP-QA-014'
   },
   production: {
     key: 'production',
@@ -75,7 +104,13 @@ export const workspaceEnvironments: Record<WorkspaceEnvironment, EnvironmentProf
       { link: '/production/iot', label: 'nav.iot-overview' },
       { link: '/production/incidents', label: 'nav.incidents' },
       { link: '/production/tasks', label: 'nav.tasks' }
-    ]
+    ],
+    search: [
+      { endpoint: environment.platformProviderBatchesEndpointPath, route: '/production/batches/{code}' },
+      { endpoint: environment.platformProviderProductionOrdersEndpointPath, route: '/production/orders/{code}' },
+      { endpoint: environment.platformProviderSensorsEndpointPath, route: '/production/sensors/{code}' }
+    ],
+    searchExample: 'B-26041'
   },
   administration: {
     key: 'administration',
@@ -87,6 +122,8 @@ export const workspaceEnvironments: Record<WorkspaceEnvironment, EnvironmentProf
       { link: '/administration/subscription', label: 'nav.subscription-payments' },
       { link: '/administration/audit-trail', label: 'nav.audit-trail' },
       { link: '/administration/tasks', label: 'nav.tasks' }
-    ]
+    ],
+    search: [],
+    searchExample: ''
   }
 };
