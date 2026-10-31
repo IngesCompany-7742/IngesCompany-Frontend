@@ -1,9 +1,9 @@
-import {Component, computed, inject, OnInit, signal} from '@angular/core';
+import {Component, computed, HostListener, inject, OnInit, signal} from '@angular/core';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {CurrencyPipe} from '@angular/common';
 import {AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators} from '@angular/forms';
 import {RouterLink} from '@angular/router';
-import {TranslatePipe} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatError, MatFormField, MatSuffix} from '@angular/material/form-field';
@@ -16,6 +16,7 @@ import {OrganizationsStore} from '../../../application/organizations.store';
 import {RegisterOrganizationCommand} from '../../../domain/model/register-organization.command';
 import {SubscriptionsStore} from '../../../../subscriptions/application/subscriptions.store';
 import {environment} from '../../../../../environments/environment';
+import {LeaveConfirmation} from '../../../../shared/presentation/guards/unsaved-changes.guard';
 
 /**
  * Password rule of the mock-up: at least 12 characters, with a number and a symbol.
@@ -40,9 +41,10 @@ const strongPassword = (control: AbstractControl): ValidationErrors | null => {
   templateUrl: './organization-registration.html',
   styleUrl: './organization-registration.css'
 })
-export class OrganizationRegistration extends BaseForm implements OnInit {
+export class OrganizationRegistration extends BaseForm implements OnInit, LeaveConfirmation {
   protected readonly store = inject(OrganizationsStore);
   protected readonly subscriptionsStore = inject(SubscriptionsStore);
+  private readonly translate = inject(TranslateService);
 
   /**
    * URL of the DoofPlus Landing Page.
@@ -166,5 +168,28 @@ export class OrganizationRegistration extends BaseForm implements OnInit {
    */
   protected isInvalid(controlName: keyof typeof this.form.controls): boolean {
     return this.isInvalidControl(this.form, controlName);
+  }
+
+  /**
+   * Whether the form has data that has not been registered yet.
+   */
+  private hasUnsavedChanges(): boolean {
+    return this.form.dirty && this.store.registrationStep() !== 'verification';
+  }
+
+  /**
+   * Asks for confirmation before leaving the registration with unsaved data.
+   */
+  canLeave(): boolean {
+    return !this.hasUnsavedChanges() || window.confirm(this.translate.instant('organizations.registration.leave-confirm'));
+  }
+
+  /**
+   * Asks the browser to confirm when the tab is closed or reloaded with unsaved data.
+   * @param event - Event raised before the page is unloaded.
+   */
+  @HostListener('window:beforeunload', ['$event'])
+  protected warnBeforeUnload(event: BeforeUnloadEvent): void {
+    if (this.hasUnsavedChanges()) event.preventDefault();
   }
 }

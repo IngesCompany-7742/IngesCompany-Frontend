@@ -386,6 +386,7 @@
     },
     "registration": {
       "headline": "Claridad en cada paso crítico.",
+      "leave-confirm": "¿Salir del registro? Se perderán los datos ingresados.",
       "intro": {
         "qa-title": "Espacio QA/QC",
         "qa-text": "Documentos, desviaciones, CAPA y decisiones de liberación.",
