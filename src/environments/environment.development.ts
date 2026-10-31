@@ -38,5 +38,5 @@ export const environment = {
   platformProviderSensorsEndpointPath: '/sensors',
   platformProviderReadingsEndpointPath: '/readings',
   platformProviderAlertsEndpointPath: '/alerts',
-  landingPageUrl: 'https://ingescompany-7742.github.io/IngesCompany-LandingPage/',
+  landingPageUrl: 'http://localhost:8080/',
 };

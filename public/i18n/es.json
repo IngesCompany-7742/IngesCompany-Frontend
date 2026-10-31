@@ -230,6 +230,8 @@
   },
   "shell": {
     "back-to-doofplus": "Volver a DoofPlus",
+    "all-environments": "Todos los entornos",
+    "back-to-sign-in": "Volver al inicio de sesión",
     "workspace": "Espacio de trabajo",
     "help": "Ayuda y documentación",
     "menu": "Abrir menú",
@@ -650,9 +652,7 @@
       "title": "Inicia sesión en DoofPlus",
       "subtitle": "Elige el entorno en el que trabajas. Cada entorno muestra los módulos y aprobaciones de su rol.",
       "new-laboratory": "¿Laboratorio nuevo?",
-      "register": "Registra tu organización",
-      "not-customer": "¿Aún no eres cliente?",
-      "see-plans": "Ver planes"
+      "register": "Registra tu organización"
     },
     "sign-in": {
       "title": "Inicia sesión en el entorno {{environment}}",
