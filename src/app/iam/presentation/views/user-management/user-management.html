@@ -109,7 +109,7 @@
                 <td mat-cell *matCellDef="let profile">
                   <span class="chips">
                     @for (record of profile.createEdit; track record) {
-                      <span class="chip chip-info">{{ record }}</span>
+                      <span class="chip chip-info">{{ ('iam.users.permissions.' + record.toLowerCase()) | translate }}</span>
                     } @empty {
                       {{ 'iam.users.none' | translate }}
                     }
@@ -118,12 +118,12 @@
               </ng-container>
               <ng-container matColumnDef="approveSign">
                 <th mat-header-cell *matHeaderCellDef>{{ 'iam.users.approve-sign' | translate }}</th>
-                <td mat-cell *matCellDef="let profile">{{ profile.approveSign }}</td>
+                <td mat-cell *matCellDef="let profile">{{ ('iam.users.permissions.' + normalizeKey(profile.approveSign)) | translate }}</td>
               </ng-container>
               <ng-container matColumnDef="restriction">
                 <th mat-header-cell *matHeaderCellDef>{{ 'iam.users.restrictions' | translate }}</th>
                 <td mat-cell *matCellDef="let profile">
-                  <span class="chip" [class]="profile.key === 'internal-auditor' || profile.key === 'administrator' ? 'chip-warning' : 'chip-danger'">{{ profile.restriction }}</span>
+                  <span class="chip" [class]="profile.key === 'internal-auditor' || profile.key === 'administrator' ? 'chip-warning' : 'chip-danger'">{{ ('iam.users.permissions.' + normalizeKey(profile.restriction)) | translate }}</span>
                 </td>
               </ng-container>
               <tr mat-header-row *matHeaderRowDef="matrixColumns"></tr>

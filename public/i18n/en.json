@@ -730,13 +730,13 @@
         "plans": "Plans",
         "release-if-authorized": "Release if authorized",
         "production-records": "Production records",
-        "approve-documents-capa": "Approve documents and CAPA",
+        "approve-documents-and-capa": "Approve documents and CAPA",
         "none": "None",
-        "no-billing": "No billing access",
+        "no-billing-access": "No billing access",
         "cannot-release-batch": "Cannot release batch",
-        "cannot-approve-own": "Cannot approve own records",
+        "cannot-approve-own-records": "Cannot approve own records",
         "read-only-evidence": "Read-only evidence",
-        "no-qa-signing": "No QA release or signing"
+        "no-qa-release-or-signing": "No QA release or signing"
       }
     },
     "invite": {

@@ -730,13 +730,13 @@
         "plans": "Planes",
         "release-if-authorized": "Liberación si está autorizado",
         "production-records": "Registros de producción",
-        "approve-documents-capa": "Aprobar documentos y CAPA",
+        "approve-documents-and-capa": "Aprobar documentos y CAPA",
         "none": "Ninguno",
-        "no-billing": "Sin acceso a facturación",
+        "no-billing-access": "Sin acceso a facturación",
         "cannot-release-batch": "No puede liberar lotes",
-        "cannot-approve-own": "No puede aprobar sus propios registros",
+        "cannot-approve-own-records": "No puede aprobar sus propios registros",
         "read-only-evidence": "Solo lectura de evidencias",
-        "no-qa-signing": "Sin firma ni liberación de QA"
+        "no-qa-release-or-signing": "Sin firma ni liberación de QA"
       }
     },
     "invite": {
