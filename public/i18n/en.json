@@ -230,6 +230,8 @@
   },
   "shell": {
     "back-to-doofplus": "Back to DoofPlus",
+    "all-environments": "All environments",
+    "back-to-sign-in": "Back to sign in",
     "workspace": "Workspace",
     "help": "Help & documentation",
     "menu": "Open menu",
@@ -384,6 +386,7 @@
     },
     "registration": {
       "headline": "Clarity at every critical step.",
+      "leave-confirm": "Leave the registration? The data you entered will be lost.",
       "intro": {
         "qa-title": "QA/QC workspace",
         "qa-text": "Documents, deviations, CAPA and release decisions.",
@@ -650,9 +653,7 @@
       "title": "Sign in to DoofPlus",
       "subtitle": "Choose the environment you work in. Each environment shows the modules and approvals of its role.",
       "new-laboratory": "New laboratory?",
-      "register": "Register your organization",
-      "not-customer": "Not a customer yet?",
-      "see-plans": "See plans"
+      "register": "Register your organization"
     },
     "sign-in": {
       "title": "Sign in to the {{environment}} environment",

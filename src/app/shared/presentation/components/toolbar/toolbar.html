@@ -1,6 +1,10 @@
 <mat-toolbar class="toolbar">
-  <a [href]="landingUrl" class="brand"><img src="/doofplus-wordmark.png" alt="DoofPlus" class="toolbar-logo"/></a>
-  <a [href]="landingUrl" class="back"><mat-icon>arrow_back</mat-icon>{{ 'shell.back-to-doofplus' | translate }}</a>
+  <a routerLink="/sign-in" class="brand"><img src="/doofplus-wordmark.png" alt="DoofPlus" class="toolbar-logo"/></a>
+  @if (isEntryPage()) {
+    <a [href]="landingUrl" class="back"><mat-icon>arrow_back</mat-icon>{{ 'shell.back-to-doofplus' | translate }}</a>
+  } @else {
+    <a routerLink="/sign-in" class="back"><mat-icon>arrow_back</mat-icon>{{ 'shell.all-environments' | translate }}</a>
+  }
   <span class="spacer"></span>
   <app-language-switcher/>
 </mat-toolbar>

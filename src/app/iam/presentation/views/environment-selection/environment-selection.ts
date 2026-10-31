@@ -6,7 +6,6 @@ import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {workspaceEnvironments} from '../../../../shared/presentation/workspace-environments';
 import {EnvironmentIcon} from '../../components/environment-icon/environment-icon';
-import {environment} from '../../../../../environments/environment';
 
 /**
  * First sign-in page: the user chooses the environment of their role.
@@ -25,9 +24,4 @@ export class EnvironmentSelection {
     ...item,
     summary: item.features.slice(0, 4)
   }));
-
-  /**
-   * Plans section of the Landing Page.
-   */
-  protected readonly plansUrl = `${environment.landingPageUrl}#plans`;
 }

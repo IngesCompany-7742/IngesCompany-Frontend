@@ -7,7 +7,7 @@
 .top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 40px;
   height: 64px;
   padding: 0 64px;
   border-bottom: 1px solid var(--border);
@@ -17,6 +17,23 @@
 .top img {
   display: block;
   height: 34px;
+}
+
+.top .back {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.top .back .mat-icon {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+}
+
+.top .spacer {
+  flex: 1 1 auto;
 }
 
 .registration {
@@ -341,5 +358,15 @@ mat-checkbox.invalid {
 
   .strength i {
     width: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .top {
+    gap: 16px;
+  }
+
+  .top .back {
+    display: none;
   }
 }
