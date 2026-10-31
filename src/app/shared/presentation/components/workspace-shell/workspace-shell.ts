@@ -2,8 +2,10 @@ import {Component, computed, inject} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import {toSignal} from '@angular/core/rxjs-interop';
-import {map} from 'rxjs';
-import {TranslatePipe} from '@ngx-translate/core';
+import {firstValueFrom, map} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from '@angular/material/sidenav';
 import {MatToolbar} from '@angular/material/toolbar';
 import {MatListItem, MatNavList} from '@angular/material/list';
@@ -46,6 +48,15 @@ export class WorkspaceShell {
   protected readonly navigation = workspaceEnvironments[this.environment].navigation;
 
   /**
+   * Collections searched from the top bar in this environment.
+   */
+  protected readonly searchTargets = workspaceEnvironments[this.environment].search;
+
+  private readonly http = inject(HttpClient);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly translate = inject(TranslateService);
+
+  /**
    * Whether the screen is narrow: the sidebar then opens over the content.
    */
   protected readonly isHandset = toSignal(
@@ -73,5 +84,27 @@ export class WorkspaceShell {
    */
   protected signOut(): void {
     this.iamStore.signOut(this.router);
+  }
+
+  /**
+   * Opens the record whose code matches the search exactly, looking in the collections of the environment in order.
+   * When nothing matches, a message suggests the expected format.
+   * @param input - Search field.
+   */
+  protected async search(input: HTMLInputElement): Promise<void> {
+    const code = input.value.trim().toUpperCase();
+    if (!code) return;
+    for (const target of this.searchTargets) {
+      const url = `${environment.platformProviderApiBaseUrl}${target.endpoint}`;
+      const found = await firstValueFrom(this.http.get<{code: string}[]>(url, {params: {code}})).catch(() => []);
+      if (found.length) {
+        input.value = '';
+        await this.router.navigateByUrl(target.route.replace('{code}', encodeURIComponent(found[0].code)));
+        return;
+      }
+    }
+    const example = workspaceEnvironments[this.environment].searchExample;
+    this.snackBar.open(this.translate.instant('shell.search-empty', {code, example}),
+      this.translate.instant('shell.close'), {duration: 6000});
   }
 }

@@ -28,10 +28,13 @@
           <mat-icon>menu</mat-icon>
         </button>
       }
-      <label class="search">
-        <mat-icon>search</mat-icon>
-        <input type="search" [placeholder]="'shell.search' | translate" [attr.aria-label]="'shell.search' | translate">
-      </label>
+      @if (searchTargets.length) {
+        <form class="search" role="search" (submit)="$event.preventDefault(); search(searchInput)">
+          <mat-icon>search</mat-icon>
+          <input #searchInput type="search" [placeholder]="'shell.search-' + environment | translate"
+                 [attr.aria-label]="'shell.search-' + environment | translate">
+        </form>
+      }
       <span class="spacer"></span>
       <app-language-switcher variant="dark"/>
       @if (user(); as current) {
