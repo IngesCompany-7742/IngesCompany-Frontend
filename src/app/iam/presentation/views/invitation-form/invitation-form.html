@@ -54,7 +54,7 @@
         </mat-form-field>
 
         @if (selectedProfile(); as profile) {
-          <p class="restriction"><mat-icon>warning_amber</mat-icon>{{ profile.restriction }}</p>
+          <p class="restriction"><mat-icon>warning_amber</mat-icon>{{ ('iam.users.permissions.' + normalizeKey(profile.restriction)) | translate }}</p>
         }
         <div class="row actions">
           <button mat-flat-button type="submit" [disabled]="store.loading()">{{ 'iam.invite.send' | translate }}</button>
