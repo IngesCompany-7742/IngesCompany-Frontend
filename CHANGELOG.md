@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-11-01
+### Fixed
+- Links to the website (back link, help, terms and privacy) use the URL published by the IngesCompany organization.
+
 ## [1.0.1] - 2026-10-09
 ### Fixed
 - The production build reads the fake API published on Render instead of `localhost:3000`.
